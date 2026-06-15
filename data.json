@@ -1,0 +1,3192 @@
+{
+	"lectures": [
+		{
+			"id": 1,
+			"title": "Wykład 1: Rozproszone systemy o wysokiej dostępności",
+			"sections": [
+				{
+					"title": "Potrójna rewolucja i świat Cloud-Native",
+					"content": [
+						"W ostatnim czasie w świecie IT mamy do czynienia z potrójną rewolucją technologiczną, na którą składają się: upowszechnienie chmury obliczeniowej (Cloud Computing), wdrożenie kultury i praktyk DevOps oraz powszechna konteneryzacja.",
+						"Połączenie tych trzech niezależnych, lecz uzupełniających się fal zmian ukształtowało zupełnie nowe podejście do tworzenia, wdrażania oraz utrzymywania oprogramowania, definiowane jako świat natywny dla chmury (cloud-native).",
+						"Współczesne trendy technologiczne (według m.in. Gartner Emerging Technologies and Trends Impact Radar) wskazują, że kluczowe innowacje takie jak sztuczna inteligencja na brzegu sieci (Edge AI), usługi chmurowe dla twórców AI (Cloud AI Developer Services) oraz platformy niskokodowe (LCAP) stają się rewolucją produktywności dostępną już teraz."
+					]
+				},
+				{
+					"title": "Geneza i główna idea Chmury Obliczeniowej",
+					"content": [
+						"Koncepcja współdzielenia zasobów obliczeniowych nie jest nowa – jej początki sięgają lat 60. XX wieku, kiedy komputery typu mainframe zajmowały całe szafy w odległych, klimatyzowanych centrach danych, a programiści zdalnie przesyłali swoje zadania i oczekiwali na wyniki, płacąc za rzeczywisty czas procesora.",
+						"Ponieważ kupowanie i utrzymywanie własnej, zaawansowanej infrastruktury sprzętowej było nieopłacalne dla większości organizacji, narodził się model biznesowy oparty na zdalnym dostępie do maszyn zarządzanych przez podmioty trzecie. Współczesna chmura stanowi pełne koło tej ewolucji.",
+						"Główną ideą chmury jest kupowanie mocy obliczeniowej zamiast fizycznego komputera. Pozwala to uniknąć ogromnych nakładów kapitałowych na sprzęt, który szybko się starzeje, psuje mechanicznie i jest niezwykle trudny w nagłym skalowaniu.",
+						"W chmurze wyróżnia się model IaaS (Infrastructure as a Service), gdzie użytkownik wynajmuje surowe zasoby (procesor, pamięć, sieć) i uruchamia na nich własny stos oprogramowania.",
+						"Poza czystą mocą, nowoczesna chmura to systemy rozproszone oferujące gotowe usługi: systemy operacyjne, bazy danych, mechanizmy klastrowania, replikacji, monitorowania, wysokiej dostępności (High Availability), kolejkowania oraz przetwarzania strumieniowego."
+					]
+				},
+				{
+					"title": "Wprowadzenie do DevOps i jego wpływ na biznes",
+					"content": [
+						"Przed erą DevOps rozwój oprogramowania był podzielony na dwa odrębne silosy: programiści (Dev) skupiali się na jak najszybszym dostarczaniu nowych funkcjonalności, natomiast zespół operacyjny/utrzymaniowy (Ops) dbał o stabilność i bezpieczeństwo środowiska produkcyjnego, co naturalnie rodziło konflikty motywacyjne.",
+						"Pojawienie się chmury zatarło te granice, dając początek ruchowi DevOps. Jego celem jest integracja obu grup poprzez bliską współpracę, dzielenie się wiedzą oraz wspólną odpowiedzialność za niezawodność systemów.",
+						"DevOps opiera się na czterech filarach zidentyfikowanych jako model CAMS: Kultura (Culture), Automatyzacja (Automation), Pomiary (Measurement) oraz Udostępnianie (Sharing). Inne ujęcie (tzw. trójca DevOps) wskazuje na: ludzi i kulturę, proces i praktykę oraz narzędzia i technologię.",
+						"Najważniejszą cechą DevOps jest fakt, że jest to przede wszystkim zmiana o charakterze organizacyjnym i ludzkim, a nie tylko technicznym.",
+						"W nowym paradygmacie, dzięki chmurze, infrastruktura staje się kodem. Inżynierowie operacyjni piszą oprogramowanie automatyzujące chmurę, a programiści uczą się od nich projektowania systemów odpornych na awarie (fault-tolerant) i ulegających kontrolowanej degradacji.",
+						"Z perspektywy biznesowej DevOps skraca cykle wydań, przyspiesza czas reakcji na awarie, zwiększa elastyczność rynkową przedsiębiorstwa i znacząco podnosi jakość finalnego produktu."
+					]
+				},
+				{
+					"title": "Architektura Monolityczna a Mikrousługi",
+					"content": [
+						"Tradycyjna architektura monolityczna zakłada budowanie i wdrażanie systemu jako jednej, nierozerwalnej całości. Dowolne żądanie trafia do skopiowanej instancji monolitu, która zawiera w sobie kompletną logikę biznesową.",
+						"Monolity pozwalają na bardzo szybką i efektywną modyfikację kodu na wczesnym etapie projektu ze względu na brak sztywnych ograniczeń wewnętrznych, jednak generują ogromne problemy wraz ze skalowaniem zespołów.",
+						"Do głównych wad monolitu należą: trudność w zrozumieniu ogromnej bazy kodu przez programistów, drastyczne spowolnienie testów w systemach CI/CD, nieefektywne wykorzystanie zasobów (każda replika wymaga alokacji pamięci dla całego systemu oraz utrzymuje stałe połączenia z bazą danych) oraz współzależność technologii (brak możliwości łatwego wdrożenia nowego języka czy biblioteki).",
+						"Krytyczną wadą monolitu jest to, że błąd w jednej, nawet nieistotnej części systemu może doprowadzić do awarii i całkowitego zatrzymania całej usługi, a błąd wdrożenia wymaga wycofania całego systemu.",
+						"Architektura mikrousług to zbiór luźno powiązanych, wyspecjalizowanych usług, które działają harmonijnie i komunikują się przez standardowe protokoły (np. HTTP), replikując pełną funkcjonalność biznesową.",
+						"Luźne powiązanie oznacza, że każda mikrousługa może być rozwijana, testowana i wdrażana niezależnie, bez zakłócania pracy innych komponentów. Umożliwia to optymalne zarządzanie zasobami – każda usługa konsumuje tylko tyle pamięci/CPU, ile rzeczywiście potrzebuje.",
+						"Mikrousługi pozwalają na równoległy rozwój przez odseparowane zespoły, drastycznie zmniejszają dług techniczny w obrębie pojedynczego modułu oraz umożliwiają dobór optymalnej technologii (np. zmiana języka programowania) dla konkretnego zadania.",
+						"W architekturze mikrousługowej awaria jednego komponentu nie zatrzymuje całego systemu, co ogranicza zakres katastrofalnych błędów. Wymaga to jednak rygorystycznego dbania o kompatybilność wsteczną oraz ustrukturyzowanej komunikacji na etapie planowania."
+					]
+				},
+				{
+					"title": "Konteneryzacja (Docker) i dobre praktyki",
+					"content": [
+						"Choć mikrousługi można wdrażać bezpośrednio na serwerach fizycznych lub maszynach wirtualnych, standardem stało się wykorzystanie kontenerów.",
+						"Kontener to lekki, autonomiczny pakiet oprogramowania zawierający kod aplikacji wraz ze wszystkimi jego zależnościami, bibliotekami i plikami konfiguracyjnymi. Do działania wymaga jedynie kompatybilnego jądra systemu operacyjnego hosta.",
+						"Docker jest wiodącym narzędziem kontenerowym. Kontener w Dockerze można opisać jako proces otoczony własnym, odizolowanym systemem plików. Gwarantuje to wysoką przenośność (izolacja od sprzętu), lekkość (minimalny narzut danych) oraz wysokie bezpieczeństwo (mała powierzchnia ataku).",
+						"Praca z Dockerem dzieli się na dwa etapy: budowanie obrazu (poprzez wykonywanie kolejnych warstw zmian w systemie plików) oraz uruchamianie kontenera (wykonanie głównego polecenia).",
+						"Konteneryzacja idealnie współgra z zasadami aplikacji 'Twelve-Factor' – zbiorem sprawdzonych praktyk tworzenia nowoczesnych aplikacji internetowych, których wdrożenie w środowisku Docker jest naturalne i uproszczone.",
+						"Dodatkowym atutem jest istnienie rejestru Docker Hub, który udostępnia tysiące gotowych, oficjalnych obrazów (baz danych, serwerów), co pozwala na natychmiastowe dziedziczenie lub bezpośrednie użycie gotowych komponentów."
+					]
+				},
+				{
+					"title": "Orkiestracja i Ekosystem Kubernetes",
+					"content": [
+						"Zarządzanie rozproszoną siecią setek pojedynczych kontenerów na wielu maszynach o różnych systemach operacyjnych jest niemożliwe dla człowieka. Zespoły operacyjne potrzebują koordynatora – oprogramowania integrującego maszyny w jeden spójny klaster.",
+						"Koordynator kontenerów odpowiada za trzy kluczowe obszary: Orkiestrację (koordynowanie i sekwencjonowanie działań), Harmonogramowanie (efektywne przydzielanie obciążeń do maszyn na podstawie wolnych zasobów) oraz Zarządzanie klastrem (łączenie serwerów w zunifikowaną, odporną na błędy grupę).",
+						"Prekursorem w tej dziedzinie była firma Google, która na długo przed innymi uruchamiała kontenery na masową skalę za pomocą swojego prywatnego, wewnętrznego systemu Borg. W 2014 roku Google zainicjowało projekt open source Kubernetes (z greckiego: 'sternik'), przenosząc doświadczenia z systemu Borg i Omega do publicznie dostępnego narzędzia.",
+						"Po zakończeniu tzw. 'wojen o orkiestrację' pod koniec 2017 roku, Kubernetes stał się absolutnym standardem rynkowym dla firm wdrażających infrastrukturę kontenerową.",
+						"Kubernetes automatyzuje zadania administratora systemów: obsługuje przełączanie awaryjne (failover), scentralizowane logowanie, monitorowanie, instalowanie poprawek bezpieczeństwa oraz równoważenie obciążenia (load balancing).",
+						"Wspiera zaawansowane strategie wdrażania oprogramowania: wdrożenia kanarkowe (stopniowe kierowanie ruchu na pojedyncze zaktualizowane maszyny w celu wykrycia błędów) oraz wdrożenia niebiesko-zielone (uruchomienie pełnej nowej wersji obok starej i natychmiastowe przełączenie całego ruchu).",
+						"Platforma oferuje automatyczne skalowanie (horyzontalne dodawanie/usuwanie replik kontenerów na podstawie zużycia CPU/pamięci) oraz pełną niezależność od dostawcy chmury (vendor lock-in). Definiowane zasoby są mapowane na specyficzne usługi danego dostawcy (np. utworzenie Load Balancera w GCP automatycznie zmapuje się na analogiczny komponent w AWS)."
+					]
+				},
+				{
+					"title": "Rozwiązania bezserwerowe (Serverless / FaaS)",
+					"content": [
+						"Nie wszystkie komponenty systemów nadają się do uruchomienia w środowisku Kubernetes – przykładem są tradycyjne bazy danych, których utrzymanie tam wymaga ogromnych nakładów pracy inżynierskiej.",
+						"Dla krótkich, samodzielnych zadań integrujących się z ekosystemem chmurowym lepszym rozwiązaniem są platformy bezserwerowe FaaS (Function as a Service), takie jak AWS Lambda.",
+						"Istnieją technologie hybrydowe, umożliwiające uruchamianie funkcji FaaS bezpośrednio na posiadanym klastrze Kubernetes. Rozwiązania takie jak OpenFaaS tworzą architekturę określaną potocznie jako 'funtainery' (funkcje w kontenerach).",
+						"Najbardziej zaawansowaną, aktywnie rozwijaną platformą dostarczania oprogramowania dla Kubernetesa, łączącą kontenery i funkcje chmurowe, jest projekt Knative."
+					]
+				}
+			],
+			"quiz": [
+				{
+					"question": "Co składa się na potrójną rewolucję technologiczną tworzącą świat cloud-native?",
+					"options": [
+						{
+							"text": "Chmura obliczeniowa (Cloud Computing)",
+							"isCorrect": true
+						},
+						{
+							"text": "Wprowadzenie podejścia DevOps",
+							"isCorrect": true
+						},
+						{
+							"text": "Szerokie wykorzystanie kontenerów",
+							"isCorrect": true
+						},
+						{
+							"text": "Wycofanie systemów rozproszonych na rzecz mainframe",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jaka jest główna idea przyświecająca modelowi chmury obliczeniowej?",
+					"options": [
+						{
+							"text": "Kupowanie fizycznych serwerów o stałej konfiguracji na własność",
+							"isCorrect": false
+						},
+						{
+							"text": "Kupowanie elastycznej mocy obliczeniowej zamiast sprzętu",
+							"isCorrect": true
+						},
+						{
+							"text": "Przeniesienie odpowiedzialności za skalowanie i konserwację na dostawcę",
+							"isCorrect": true
+						},
+						{
+							"text": "Całkowite unikanie awarii mechanicznych po stronie klienta",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Które ze stwierdzeń prawidłowo opisują relację w modelu IaaS?",
+					"options": [
+						{
+							"text": "Klient otrzymuje gotowe, skonfigurowane oprogramowanie końcowe i bazy danych",
+							"isCorrect": false
+						},
+						{
+							"text": "Klient wynajmuje surową infrastrukturę i uruchamia na niej własny stos oprogramowania",
+							"isCorrect": true
+						},
+						{
+							"text": "Skrót IaaS oznacza Infrastructure as a Service",
+							"isCorrect": true
+						},
+						{
+							"text": "Jest to model w pełni tożsamy z podejściem FaaS",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Z jakich historycznych rozwiązań wywodzi się współczesna koncepcja chmury obliczeniowej?",
+					"options": [
+						{
+							"text": "Z komputerów typu mainframe działających w modelu podziału czasu",
+							"isCorrect": true
+						},
+						{
+							"text": "Z wczesnych lokalnych sieci peer-to-peer",
+							"isCorrect": false
+						},
+						{
+							"text": "Ze zdalnego przesyłania zadań do maszyn zarządzanych przez podmioty trzecie",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": " Czym charakteryzował się tradycyjny podział ról w IT przed wprowadzeniem DevOps?",
+					"options": [
+						{
+							"text": "Programiści (Dev) odpowiadali za szybkie wdrażanie innowacji i nowych funkcji",
+							"isCorrect": true
+						},
+						{
+							"text": "Zespoły operacyjne (Ops) dążyły do zachowania długoterminowej stabilności środowiska",
+							"isCorrect": true
+						},
+						{
+							"text": "Cele obu tych grup były ze sobą spójne i nie generowały konfliktów",
+							"isCorrect": false
+						},
+						{
+							"text": "Zespoły operacyjne zajmowały się wyłącznie pisaniem kodu biznesowego",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": " Co wchodzi w skład tzw. modelu CAMS, definiującego filary ruchu DevOps?",
+					"options": [
+						{
+							"text": "Kultura (Culture)",
+							"isCorrect": true
+						},
+						{
+							"text": "Automatyzacja (Automation)",
+							"isCorrect": true
+						},
+						{
+							"text": "Konteneryzacja (Containerization)",
+							"isCorrect": false
+						},
+						{
+							"text": "Pomiary (Measurement)",
+							"isCorrect": true
+						},
+						{
+							"text": "Udostępnianie (Sharing)",
+							"isCorrect": true
+						},
+						{
+							"text": "Zarządzanie klastrem (Cluster Management)",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": " Jak chmura obliczeniowa wpłynęła na codzienną pracę inżynierów operacyjnych (Ops)?",
+					"options": [
+						{
+							"text": "Zostali zmuszeni do wyłącznie ręcznego montowania i aktualizowania podzespołów",
+							"isCorrect": false
+						},
+						{
+							"text": "Infrastruktura stała się oprogramowaniem, a inżynierowie Ops zaczęli pisać kod automatyzujący",
+							"isCorrect": true
+						},
+						{
+							"text": "Przejęli od programistów pisanie całej logiki biznesowej aplikacji",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": " Jakie korzyści biznesowe przynosi firmom prawidłowe wdrożenie DevOps?",
+					"options": [
+						{
+							"text": "Szybsze wydawanie oprogramowania na rynek",
+							"isCorrect": true
+						},
+						{
+							"text": "Lepszą i sprawniejszą reakcję na awarie produkcyjne",
+							"isCorrect": true
+						},
+						{
+							"text": "Całkowitą eliminację konieczności zatrudniania programistów",
+							"isCorrect": false
+						},
+						{
+							"text": "Podniesienie ogólnej jakości dostarczanych produktów",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Czym cechuje się aplikacja zbudowana w architekturze monolitycznej?",
+					"options": [
+						{
+							"text": "Stanowi pojedynczą jednostkę, którą należy wdrożyć w całości",
+							"isCorrect": true
+						},
+						{
+							"text": "Uniemożliwia stosowanie wewnętrznego podziału na moduły w kodzie",
+							"isCorrect": false
+						},
+						{
+							"text": "Wyklucza możliwość replikacji kodu i poziomego skalowania żądań",
+							"isCorrect": false
+						},
+						{
+							"text": "Nie pozwala na przeprowadzanie częściowych wdrożeń niezależnych komponentów",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": " Jakie problemy pojawiają się w monolicie w miarę rozrostu bazy kodu i zespołów?",
+					"options": [
+						{
+							"text": "Uruchamianie testów w systemach CI staje się powolne i obniża wydajność",
+							"isCorrect": true
+						},
+						{
+							"text": "Zwiększa się prawdopodobieństwo konfliktów między wieloma zespołami pracującymi na jednym kodzie",
+							"isCorrect": true
+						},
+						{
+							"text": "Kod staje się trudny do zrozumienia przez poszczególnych deweloperów",
+							"isCorrect": true
+						},
+						{
+							"text": "Zasady odpowiedzialności za poszczególne fragmenty systemu stają się niejasne",
+							"isCorrect": true
+						},
+						{
+							"text": "System automatycznie przepisuje się na mikrousługi po przekroczeniu limitu linii kodu",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Na czym polega nieefektywne wykorzystanie zasobów w architekturze monolitycznej?",
+					"options": [
+						{
+							"text": "Każda instancja systemu wymaga alokacji zasobów potrzebnych do uruchomienia całości, a nie tylko używanej funkcji",
+							"isCorrect": true
+						},
+						{
+							"text": "Każdy proces roboczy musi utrzymywać połączenie z bazą danych, nawet jeśli z niej nie korzysta",
+							"isCorrect": true
+						},
+						{
+							"text": "Zasoby procesora są automatycznie blokowane i niedostępne dla żadnych operacji sieciowych",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób monolit ogranicza elastyczność technologiczną (współzależność technologii)?",
+					"options": [
+						{
+							"text": "Każda nova technologia musi być w pełni zgodna z technologią bazową monolitu",
+							"isCorrect": true
+						},
+						{
+							"text": "Aktualizacja jednej biblioteki ze względów bezpieczeństwa może popsuć inne, niezwiązane moduły",
+							"isCorrect": true
+						},
+						{
+							"text": "Wymusza pisanie każdej funkcji w innym języku programowania",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jakie są fundamentalne cechy architektury mikrousług?",
+					"options": [
+						{
+							"text": "Jest to zbiór luźno powiązanych i wyspecjalizowanych usług",
+							"isCorrect": true
+						},
+						{
+							"text": "Każda mikrousługa musi być bezwzględnie napisana w tym samym języku programowania",
+							"isCorrect": false
+						},
+						{
+							"text": "Wszystkie komponenty działają niezależnie, ale harmonijnie komunikują się ze sobą",
+							"isCorrect": true
+						},
+						{
+							"text": "Każdą z usług można wdrożyć w sposób całkowicie niezależny",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Jakie korzyści pod kątem utrzymania kodu niosą ze sobą mikrousługi?",
+					"options": [
+						{
+							"text": "Mniejsza liczba linii kodu w pojedynczej usłudze upraszcza projekt i skraca czas kompilacji",
+							"isCorrect": true
+						},
+						{
+							"text": "Refaktoryzacja może być przeprowadzana w kontrolowany sposób w obrębie jednej usługi",
+							"isCorrect": true
+						},
+						{
+							"text": "Poszczególne usługi mogą zmieniać swój stos technologiczny niezależnie od reszty systemu",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "O co należy szczególnie zadbać podczas niezależnego wdrażania kolejnych wersji mikrousług?",
+					"options": [
+						{
+							"text": "O zachowanie wstecznej kompatybilności (backward compatibility) interfejsów",
+							"isCorrect": true
+						},
+						{
+							"text": "O zapewnienie, że wdrożenie będzie transparentne dla usług zależnych",
+							"isCorrect": true
+						},
+						{
+							"text": "O jednoczesne zrestartowanie wszystkich maszyn w klastrze przy każdej drobnej zmianie",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Czym z technicznego punktu widzenia jest kontener oprogramowania?",
+					"options": [
+						{
+							"text": "Ciężką maszyną wirtualną posiadającą pełny, niezależny system operacyjny",
+							"isCorrect": false
+						},
+						{
+							"text": "Lekkim pakietem zawierającym aplikację wraz ze wszystkimi niezbędnymi zależnościami",
+							"isCorrect": true
+						},
+						{
+							"text": "Procesem uruchomionym na hostingu, odizolowanym i otoczonym własnym systemem plików",
+							"isCorrect": true
+						},
+						{
+							"text": "Rozwiązaniem sprzętowym instalowanym bezpośrednio w szafie rack",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Za co odpowiada koordynator (orkiestrator) kontenerów w kontekście zarządzania klastrem?",
+					"options": [
+						{
+							"text": "Harmonogramowanie – przydzielanie obciążeń tam, gdzie zasoby są najlepiej wykorzystane",
+							"isCorrect": true
+						},
+						{
+							"text": "Orkiestrację – koordynację i sekwencjonowanie działań w celu osiągnięcia wspólnego celu",
+							"isCorrect": true
+						},
+						{
+							"text": "Zarządzanie klastrem – łączenie wielu maszyn w jedną, spójną i niezawodną grupę",
+							"isCorrect": true
+						},
+						{
+							"text": "Automatyczne pisanie testów jednostkowych za programistów",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jaka jest geneza powstania systemu Kubernetes?",
+					"options": [
+						{
+							"text": "Został stworzony od zera przez społeczność Docker Hub jako prosty dodatek sieciowy",
+							"isCorrect": false
+						},
+						{
+							"text": "Został zapoczątkowany przez Google w 2014 roku jako projekt open source",
+							"isCorrect": true
+						},
+						{
+							"text": "Bazował na wieloletnich doświadczeniach Google z wewnętrznymi systemami Borg i Omega",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Na czym polegają wdrożenia udostępniane przez platformę Kubernetes?",
+					"options": [
+						{
+							"text": "Wdrożenia kanarkowe: stopniowe wdrażanie aktualizacji na jednym serwerze na raz",
+							"isCorrect": true
+						},
+						{
+							"text": "Wdrożenia niebiesko-zielone: równoległe uruchamianie nowej wersji i szybkie przełączenie ruchu",
+							"isCorrect": true
+						},
+						{
+							"text": "Wdrożenia ręczne: wymagające fizycznej podmiany dysków twardych w serwerowni",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Które z poniższych stwierdzeń dotyczących ekosystemu Kubernetes są prawdziwe?",
+					"options": [
+						{
+							"text": "Kubernetes jest niezależny od dostawcy chmury (brak vendor lock-in)",
+							"isCorrect": true
+						},
+						{
+							"text": "Obsługuje automatyczne skalowanie replik w zależności od obciążenia",
+							"isCorrect": true
+						},
+						{
+							"text": "Mapuje zdefiniowane zasoby logiczne na specyficzne funkcje konkretnego dostawcy chmury",
+							"isCorrect": true
+						},
+						{
+							"text": "Został całkowicie porzucony na rzecz architektury monolitycznej w 2017 roku",
+							"isCorrect": false
+						},
+						{
+							"text": "Jest idealnym miejscem do bezproblemowego uruchamiania baz danych bez narzutu pracy inżynierskiej",
+							"isCorrect": false
+						},
+						{
+							"text": "Posiada wbudowane funkcje redundancji i przełączania awaryjnego (failover)",
+							"isCorrect": true
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 2,
+			"title": "Wykład 2: Środowisko Docker i Ekosystem Kubernetes",
+			"sections": [
+				{
+					"title": "Ekosystem Docker i Docker Desktop",
+					"content": [
+						"Docker to wielokomponentowe środowisko, na które składają się: ujednolicony format obrazu kontenera, biblioteka środowiska uruchomieniowego (runtime) sterująca cyklem życia kontenerów, interfejs API do zarządzania zasobami oraz narzędzie CLI do pakowania i uruchamiania aplikacji.",
+						"Wersję zainstalowanego środowiska oraz jego poszczególnych komponentów (np. silnika, containerd czy runc) można zweryfikować w terminalu za pomocą polecenia `docker version`.",
+						"Docker Desktop to kompletne środowisko programistyczne przeznaczone dla systemów Mac oraz Windows, umożliwiające lokalne testowanie aplikacji.",
+						"Kluczową zaletą Docker Desktop jest wbudowany, jednowęzłowy klaster Kubernetes, który można aktywować bezpośrednio w karcie ustawień aplikacji, upraszczając lokalne testy systemów rozproszonych."
+					]
+				},
+				{
+					"title": "Obrazy kontenerów i podstawy języka Go",
+					"content": [
+						"Obraz kontenera to pojedynczy plik binarny o unikalnym identyfikatorze szesnastkowym, który zawiera kompletny zestaw zależności, bibliotek i konfiguracji niezbędnych do uruchomienia aplikacji.",
+						"System potrafi automatycznie zlokalizować, pobrać z rejestru, rozpakować i uruchomić kontener na podstawie przekazanego identyfikatora obrazu lub jego adresu URL.",
+						"Wiele kluczowych narzędzi chmurowych (Cloud-Native), w tym sam Kubernetes, Docker oraz Terraform, zostało napisanych w nowoczesnym języku programowania Go (Golang) rozwijanym przez Google od 2009 roku.",
+						"Język Go stawia na prostotę, czytelność oraz bezpieczeństwo i został zaprojektowany celowo do obsługi dużych, współbieżnych aplikacji oraz rozproszonych usług sieciowych."
+					]
+				},
+				{
+					"title": "Tworzenie obrazów za pomocą Dockerfile i optymalizacja",
+					"content": [
+						"Proces budowania obrazu kontenera inicjuje polecenie `docker image build`, które jako wejście przyjmuje plik tekstowy o nazwie Dockerfile, zawierający instrukcje transformacji obrazu bazowego.",
+						"Do nadawania czytelnych dla człowieka nazw (tagów) obrazom podczas budowania służy przełącznik `-t` (np. `docker image build -t myhello .`).",
+						"Standardową praktyką dla aplikacji w języku Go jest stosowanie kompilacji wieloetapowej (multi-stage build) w pliku Dockerfile, dzielącej proces na etap budowania i etap uruchamiania.",
+						"Pierwszy etap kompilacji wieloetapowej wykorzystuje obraz z zainstalowanym środowiskiem (np. `golang:alpine`) do skompilowania kodu źródłowego do pliku wykonywalnego.",
+						"Drugi etap pobiera całkowicie pusty obraz bazowy (tzw. obraz `scratch`) i kopiuje do niego wyłącznie skompilowany wcześniej plik binarny.",
+						"Wydzielenie drugiego etapu pozwala drastycznie zmniejszyć rozmiar obrazu (np. z 350 MB do kilku MB), co przyspiesza jego przesyłanie, skraca czas uruchamiania oraz minimalizuje podatność na ataki poprzez redukcję potencjalnych luk w zabezpieczeniach."
+					]
+				},
+				{
+					"title": "Uruchamianie kontenerów, izolacja i rejestry",
+					"content": [
+						"Programy uruchomione w kontenerze są całkowicie odizolowane od systemu operacyjnego hosta, przez co nie mają bezpośredniego dostępu do portów sieciowych maszyny.",
+						"Aby połączyć się z aplikacją działającą w kontenerze, należy przekierować port komputera lokalnego (hosta) na prywatny port kontenera za pomocą flagi `-p` w składni `HOST_PORT:CONTAINER_PORT`.",
+						"Rejestr kontenerów umożliwia centralne przechowywanie oraz pobieranie obrazów pod unikalną nazwą, a domyślnym publicznym rejestrem dla środowiska Docker jest Docker Hub.",
+						"Przesłanie lokalnego obrazu do zdalnego rejestru wymaga uwierzytelnienia poleceniem `docker login`, otagowania obrazu w formacie `YOUR_DOCKER_ID/nazwa_obrazu` i wykonania polecenia `docker image push`."
+					]
+				},
+				{
+					"title": "Architektura Klastra Kubernetes i Płaszczyzna Sterowania",
+					"content": [
+						"Kubernetes pełni funkcję systemu operacyjnego dla chmury natywnej, łącząc wiele serwerów fizycznych lub wirtualnych w jeden spójny klaster.",
+						"Rdzeniem architektury jest płaszczyzna sterowania (Control Plane), uruchamiana na tzw. węzłach głównych (Master Nodes), odpowiedzialna za zarządzanie klastrem i planowanie zadań.",
+						"Wysoka dostępność (HA) płaszczyzny sterowania wymaga utrzymania kworum w przypadku awarii, dlatego klastry produkcyjne powinny posiadać minimum trzy węzły główne.",
+						"Komponent `kube-apiserver` działa jako front-end płaszczyzny sterowania i obsługuje wszystkie przychodzące żądania API systemu.",
+						"Komponent `etcd` stanowi rozproszoną bazę danych klastra, w której Kubernetes przechowuje wszelkie informacje o stanie systemu i istniejących zasobach.",
+						"Komponent `kube-scheduler` odpowiada za podejmowanie decyzji o przydzieleniu i uruchomieniu nowo utworzonych podów na konkretnych węzłach.",
+						"Komponent `kube-controller-manager` uruchamia procesy kontrolerów zarządzających zasobami logicznymi takimi jak wdrożenia (deployments).",
+						"Komponent `cloud-controller-manager` odpowiada za natywną integrację klastra z API dostawcy chmury w celu automatycznego przydzielania m.in. dysków i modułów load balancingu."
+					]
+				},
+				{
+					"title": "Komponenty Węzłów Roboczych i obsługa w CLI",
+					"content": [
+						"Węzły robocze (Worker Nodes) to maszyny w klastrze, których wyłącznym zadaniem jest fizyczne uruchamianie obciążeń kontenerowych użytkownika.",
+						"Na każdym węźle roboczym działa komponent `kubelet`, który bezpośrednio steruje środowiskiem wykonawczym kontenerów na danej maszynie i stale monitoruje ich status.",
+						"Komponent `kube-proxy` odpowiada za operacje sieciowe, przekierowując ruch sieciowy między kontenerami na różnych węzłach oraz między kontenerami a siecią zewnętrzną.",
+						"Fizyczne uruchamianie i zatrzymywanie kontenerów realizuje środowisko wykonawcze (Container Runtime) – najczęściej Docker, rkt lub CRI-O.",
+						"Awaria węzła roboczego nie destabilizuje systemu; jeśli Control Plane działa, Kubernetes automatycznie wykryje brak łączności i przepnie kontenery na inne zdrowe maszyny.",
+						"Do uruchomienia pojedynczego kontenera bezpośrednio z poziomu CLI służy narzędzie `kubectl` z poleceniem `kubectl run`.",
+						"Lokalny dostęp sieciowy do kontenera uruchomionego wewnątrz klastra można uzyskać poprzez mapowanie portów poleceniem `kubectl port-forward` (np. wskazując bezpośrednio obiekt podu: `kubectl port-forward pod/nazwa_podu 9999:8888`)."
+					]
+				},
+				{
+					"title": "Porównanie modeli wdrażania klastra Kubernetes",
+					"content": [
+						"Samodzielnie hostowany Kubernetes (On-Premises / Bare-Metal) polega na ręcznej instalacji i konfiguracji infrastruktury przez własny zespół, co daje maksymalną elastyczność i brak opłat za samą licencję orkiestratora."
+					]
+				},
+				{
+					"title": "Usługi zarządzane i bezklastrowe",
+					"content": [
+						"Model samodzielnego hostingu generuje potężny narzut operacyjny, wymagając wysokich kompetencji inżynieryjnych; szacuje się, że wdrożenie stabilnej konfiguracji produkcyjnej od zera generuje koszty rzędu miliona dolarów w pensjach inżynierów.",
+						"Zarządzane usługi chmurowe usuwają narzut administracyjny poprzez automatyczną konfigurację, monitorowanie, aktualizacje poprawek bezpieczeństwa oraz zapewnienie wysokiej dostępności płaszczyzny sterowania.",
+						"Google Kubernetes Engine (GKE) oferuje głęboką integrację z platformą GCP, wsparcie dla automatycznego skalowania klastra oraz klastry regionalne dystrybuujące wiele węzłów Control Plane i Workerów w różnych strefach awarii.",
+						"Azure Kubernetes Service (AKS) dostarcza analogiczne do GKE funkcje zarządzane, udostępniając m.in. zautomatyzowany tryb AKS Automatic upraszczający proces od obrazu do wdrożenia aplikacji.",
+						"Amazon Elastic Kubernetes Service (EKS) pobiera dodatkowe opłaty za infrastrukturę węzłów głównych i wymaga większej ilości konfiguracji, lecz stanowi optymalny wybór przy migracji ze starszych usług AWS (jak ECS).",
+						"Dla dużych korporacji z heterogeniczną strukturą bare-metal i multi-cloud dedykowany jest produkt Red Hat OpenShift (typu PaaS), zarządzający pełnym cyklem życia aplikacji i procesami CI/CD.",
+						"Rozwiązania 'pod klucz' (np. Stackpoint, CKE) automatyzują powołanie klastra produkcyjnego w chmurach publicznych za pomocą kilku kliknięć w przeglądarce.",
+						"W przypadku braku usług zarządzanych, administratorzy wykorzystują dedykowane instalatory: Kops (specyficzny dla AWS/GCP), Kubespray (oparty na Ansible), TK8 (łączący Terraform i Kubespray), Kubeadm (oficjalne narzędzie do wdrażania na czystych instancjach) oraz Tarmak (aktualizujący węzły na miejscu).",
+						"Najwyższym poziomem abstrakcji są bezklastrowe usługi kontenerowe (Serverless Containers), takie jak Azure Container Instances (ACI) lub Amazon Fargate, gdzie użytkownik definiuje jedynie obraz kontenera oraz zasoby CPU/RAM, tracąc dostęp przez `kubectl`, ale całkowicie eliminując potrzebę zarządzania węzłami."
+					]
+				}
+			],
+			"quiz": [
+				{
+					"question": "Z jakich powiązanych ze sobą elementów składa się środowisko uruchomieniowe Docker?",
+					"options": [
+						{
+							"text": "Format obrazu kontenera",
+							"isCorrect": true
+						},
+						{
+							"text": "Biblioteka runtime zarządzająca cyklem życia kontenera",
+							"isCorrect": true
+						},
+						{
+							"text": "Interfejs API do zarządzania kontenerami",
+							"isCorrect": true
+						},
+						{
+							"text": "Narzędzie wiersza poleceń (CLI) do pakowania i uruchamiania",
+							"isCorrect": true
+						},
+						{
+							"text": "Wbudowany kompilator kodu źródłowego C++",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób można przetestować aplikację w środowisku Kubernetes lokalnie na systemie Windows lub Mac za pomocą Docker Desktop?",
+					"options": [
+						{
+							"text": "Należy zainstalować zewnętrzny, wielowęzłowy klaster fizyczny w sieci LAN",
+							"isCorrect": false
+						},
+						{
+							"text": "Należy włączyć opcję Kubernetes w Preferencjach aplikacji Docker Desktop",
+							"isCorrect": true
+						},
+						{
+							"text": "Docker Desktop automatycznie udostępnia wbudowany, jednowęzłowy klaster testowy",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Które z podanych stwierdzeń poprawnie opisują cechy obrazu kontenera?",
+					"options": [
+						{
+							"text": "Jest to pojedynczy plik binarny",
+							"isCorrect": true
+						},
+						{
+							"text": "Każdy obraz posiada unikalny identyfikator",
+							"isCorrect": true
+						},
+						{
+							"text": "Zawiera w sobie wyłącznie kod źródłowy, bez zależności i konfiguracji",
+							"isCorrect": false
+						},
+						{
+							"text": "System potrafi go pobrać i uruchomić bezpośrednio na podstawie adresu URL lub ID",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Które ze znanych narzędzi ekosystemu chmurowego (Cloud-Native) zostały napisane w języku programowania Go?",
+					"options": [
+						{
+							"text": "Kubernetes",
+							"isCorrect": true
+						},
+						{ "text": "Docker", "isCorrect": true },
+						{
+							"text": "Terraform",
+							"isCorrect": true
+						},
+						{ "text": "Puppet", "isCorrect": false }
+					]
+				},
+				{
+					"question": "Jakie cechy i założenia projektowe charakteryzują język programowania Go (Golang)?",
+					"options": [
+						{
+							"text": "Został zaprojektowany w firmie Google",
+							"isCorrect": true
+						},
+						{
+							"text": "Stawia na prostotę, bezpieczeństwo i czytelność kodu",
+							"isCorrect": true
+						},
+						{
+							"text": "Jest dedykowany do budowy dużych, współbieżnych aplikacji i usług sieciowych",
+							"isCorrect": true
+						},
+						{
+							"text": "Został wprowadzony na rynek w latach 60. ubiegłego wieku",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób można nadać czytelną dla człowieka nazwę obrazu podczas jego budowania za pomocą narzędzia Docker CLI?",
+					"options": [
+						{
+							"text": "Używając flagy --name w poleceniu docker container run",
+							"isCorrect": false
+						},
+						{
+							"text": "Używając przełącznika -t w poleceniu docker image build",
+							"isCorrect": true
+						},
+						{
+							"text": "Docker nie pozwala na zmianę nazwy i wymusza stosowanie identyfikatora szesnastkowego",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Na czym polega technika kompilacji wieloetapowej (multi-stage build) w kontekście budowania aplikacji Go w Dockerze?",
+					"options": [
+						{
+							"text": "Umożliwia budowanie na istniejących obrazach w celu tworzenia nowych struktur",
+							"isCorrect": true
+						},
+						{
+							"text": "Pierwszy etap kompiluje plik źródłowy wewnątrz obrazu zawierającego środowisko języka Go",
+							"isCorrect": true
+						},
+						{
+							"text": "Drugi etap kopiuje wynikowy plik wykonywalny do całkowicie pustego obrazu typu scratch",
+							"isCorrect": true
+						},
+						{
+							"text": "Wymusza jednoczesne uruchomienie kontenera na systemach Linux i Windows",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jakie są główne korzyści z usunięcia zbędnych plików i środowiska kompilacji z ostatecznego obrazu kontenera w drugim etapie multi-stage build?",
+					"options": [
+						{
+							"text": "Obraz ma mniejszy rozmiar, dzięki czemu szybciej się pobiera i uruchamia",
+							"isCorrect": true
+						},
+						{
+							"text": "Minimalna zawartość kontenera zmniejsza powierzchnię potencjalnego ataku",
+							"isCorrect": true
+						},
+						{
+							"text": "Mniejsza liczba programów w kontenerze oznacza mniej potencjalnych luk bezpieczeństwa",
+							"isCorrect": true
+						},
+						{
+							"text": "Aplikacja automatycznie zyskuje dostęp do portów sieciowych hosta bez przekierowań",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób realizowana jest komunikacja sieciowa z aplikacją zamkniętą wewnątrz odizolowanego kontenera?",
+					"options": [
+						{
+							"text": "Kontenery mają domyślnie pełny i bezpośredni dostęp do publicznych portów maszyny hosta",
+							"isCorrect": false
+						},
+						{
+							"text": "Należy dokonać jawnego przekierowania portów za pomocą przełącznika -p",
+							"isCorrect": true
+						},
+						{
+							"text": "Składnia przekierowania portów w poleceniu uruchomienia to HOST_PORT:CONTAINER_PORT",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Jakie kroki należy wykonać, aby poprawnie przesłać lokalnie zbudowany obraz kontenera do publicznego rejestru Docker Hub?",
+					"options": [
+						{
+							"text": "Połączyć lokalnego demona z rejestrem za pomocą polecenia docker login",
+							"isCorrect": true
+						},
+						{
+							"text": "Zbudować lub otagować obraz w ścisłym formacie zawierającym Twój Docker ID",
+							"isCorrect": true
+						},
+						{
+							"text": "Wykorzystać polecenie docker image push z poprawnym tagiem",
+							"isCorrect": true
+						},
+						{
+							"text": "Skorzystać z polecenia kubectl port-forward w celu synchronizacji dysków",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Co wchodzi w skład płaszczyzny sterowania (Control Plane) klastra Kubernetes i odpowiada za jego prawidłowe funkcjonowanie?",
+					"options": [
+						{
+							"text": "Komponenty odpowiedzialne za planowanie kontenerów i zarządzanie usługami",
+							"isCorrect": true
+						},
+						{
+							"text": "Obsługa przychodzących żądań API systemu",
+							"isCorrect": true
+						},
+						{
+							"text": "Fizyczne środowisko uruchomieniowe kontenerów na węzłach roboczych",
+							"isCorrect": false
+						},
+						{
+							"text": "Zestaw procesów działających na maszynach zwanych węzłami głównymi",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Jakie wymagania architektoniczne należy spełnić, aby zapewnić wysoką dostępność (High Availability) płaszczyzny sterowania w klastrach produkcyjnych?",
+					"options": [
+						{
+							"text": "Wystarczy uruchomić pojedynczy, bardzo wydajny węzeł główny",
+							"isCorrect": false
+						},
+						{
+							"text": "Klaster musi utrzymać kworum w przypadku awarii jednego z kontrolerów",
+							"isCorrect": true
+						},
+						{
+							"text": "Minimalna zalecana liczba węzłów głównych dla środowisk produkcyjnych wynosi trzy",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Za jakie zadania odpowiada komponent kube-apiserver w architekturze klastra Kubernetes?",
+					"options": [
+						{
+							"text": "Działa jako serwer front-end dla całej płaszczyzny sterowania",
+							"isCorrect": true
+						},
+						{
+							"text": "Odpowiada bezpośrednio za obsługę wszystkich żądań API",
+							"isCorrect": true
+						},
+						{
+							"text": "Przechowuje stan klastra w relacyjnej bazie danych SQL",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Czym jest komponent etcd i jaką funkcję pełni w klastrze Kubernetes?",
+					"options": [
+						{
+							"text": "Jest to środowisko wykonawcze kontenerów, alternatywne dla Dockera",
+							"isCorrect": false
+						},
+						{
+							"text": "To baza danych, w której Kubernetes przechowuje wszystkie informacje o konfiguracji klastra",
+							"isCorrect": true
+						},
+						{
+							"text": "Przechowuje wiedzę o tym, jakie węzły i zasoby aktualnie istnieją w systemie",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Jakie funkcje realizują komponenty kube-scheduler oraz kube-controller-manager wewnątrz Control Plane?",
+					"options": [
+						{
+							"text": "Kube-scheduler podejmuje decyzje, na których węzłach uruchomić nowo utworzone pody",
+							"isCorrect": true
+						},
+						{
+							"text": "Kube-controller-manager odpowiada za uruchamianie kontrolerów zasobów, takich jak wdrożenia",
+							"isCorrect": true
+						},
+						{
+							"text": "Cloud-controller-manager zarządza lokalnymi systemami plików na stacjach roboczych deweloperów",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Które komponenty są uruchamiane na każdym węźle roboczym (Worker Node) w klastrze Kubernetes?",
+					"options": [
+						{
+							"text": "Kubelet – sterujący środowiskiem wykonawczym i monitorujący status obciążeń",
+							"isCorrect": true
+						},
+						{
+							"text": "Kube-proxy – odpowiadający za przekierowywanie żądań sieciowych",
+							"isCorrect": true
+						},
+						{
+							"text": "Kube-apiserver – przetwarzający konfigurację etcd bezpośrednio na węźle",
+							"isCorrect": false
+						},
+						{
+							"text": "Środowisko wykonawcze kontenera (np. Docker, rkt lub CRI-O)",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Co dzieje się w systemie Kubernetes, gdy dojdzie do nagłej awarii jednego z węzłów roboczych?",
+					"options": [
+						{
+							"text": "Cały klaster natychmiast przestaje działać i wymaga ponownej instalacji od zera",
+							"isCorrect": false
+						},
+						{
+							"text": "Kubernetes wykrywa awarię i przekierowuje kontenery z uszkodzonego węzła w inne wolne miejsce klastra",
+							"isCorrect": true
+						},
+						{
+							"text": "Przekierowanie zadań jest możliwe pod warunkiem, że płaszczyzna sterowania nadal funkcjonuje poprawnie",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób można uzyskać bezpośredni dostęp sieciowy w przeglądarce do podu uruchomionego poleceniem 'kubectl run'?",
+					"options": [
+						{
+							"text": "Porty podu są automatycznie i publicznie routowane w internecie",
+							"isCorrect": false
+						},
+						{
+							"text": "Należy wykonać polecenie kubectl port-forward pod/nazwa_podu, mapując port lokalny na port kontenera",
+							"isCorrect": true
+						},
+						{
+							"text": "Próba przekierowania portu bezpośrednio na pojedynczy pod wyrzuci błąd, jeśli nie wskażemy deploy/demo",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jakie są główne cechy, wady i zalety samodzielnego hostowania (self-hosted) platformy Kubernetes przez organizację?",
+					"options": [
+						{
+							"text": "Zapewnia maksymalną kontrolę nad konfiguracją, wersjonowaniem i funkcjami klastra",
+							"isCorrect": true
+						},
+						{
+							"text": "Użytkownik nie płaci zewnętrznym dostawcom za sam fakt uruchomienia klastra",
+							"isCorrect": true
+						},
+						{
+							"text": "Wymaga minimalnych nakładów pracy inżynierskiej i zerowej wiedzy o systemach rozproszonych",
+							"isCorrect": false
+						},
+						{
+							"text": "Narzut administracyjny i koszt utrzymania gotowego do produkcji klastra od podstaw może być zaporowy dla mniejszych firm",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Czym różnią się od siebie zarządzane usługi Kubernetes (np. GKE, AKS, EKS) od bezklastrowych usług kontenerowych (Serverless Containers jak ACI, Fargate)?",
+					"options": [
+						{
+							"text": "Usługi zarządzane zwalniają z administrowania warstwą Control Plane, ale użytkownik nadal zarządza węzłami roboczymi",
+							"isCorrect": true
+						},
+						{
+							"text": "GKE pozwala na budowanie klastrów regionalnych rozmieszczających węzły w wielu strefach awarii",
+							"isCorrect": true
+						},
+						{
+							"text": "W usługach bezklastrowych użytkownik nie ma dostępu do klastra za pomocą narzędzi takich jak kubectl",
+							"isCorrect": true
+						},
+						{
+							"text": "W usługach bezklastrowych wystarczy określić obraz kontenera oraz wymagania CPU/RAM, a usługa zajmie się resztą",
+							"isCorrect": true
+						},
+						{
+							"text": "Amazon EKS jest całkowicie bezpłatny i nie pobiera żadnych opłat za węzły główne",
+							"isCorrect": false
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 3,
+			"title": "Wykład 3: Zarządzanie Zasobami, Cyklem Życia i Kosztami w Kubernetes",
+			"sections": [
+				{
+					"title": "Zasoby kontrolne: Deployments i ReplicaSets",
+					"content": [
+						"Podstawowymi obiektami zaangażowanymi w proces budowania, wdrażania oraz stabilnego utrzymywania aplikacji w środowisku Kubernetes są Wdrożenia (Deployments), Pody (Pods) oraz Usługi (Services).",
+						"Wdrożenie (Deployment) pełni funkcję programu nadzorującego (analogicznie do narzędzi systemd, runit czy supervisord), który stale rejestruje nazwę obrazu, liczbę żądanych replik oraz specyfikację niezbędną do uruchomienia i automatycznego wznowienia kontenera po jego awarii.",
+						"Wdrożenie nie zarządza bezpośrednio pojedynczymi podami; zamiast tego automatycznie tworzy i kontroluje obiekt niższego poziomu o nazwie ReplicaSet, który odpowiada za utrzymanie dokładnie zdefiniowanej liczby identycznych kopii (replik) podów.",
+						"Podczas aktualizacji aplikacji wdrożenie tworzy nowy obiekt ReplicaSet dla nowej wersji systemu, a po pomyślnym zakończeniu migracji i uruchomieniu nowych podów, stary ReplicaSet wraz z jego podami zostaje wyłączony.",
+						"Do weryfikacji i monitorowania stanu aktywnych wdrożeń w bieżącej przestrzeni nazw służą polecenia `kubectl get deployments` oraz szczegółowe `kubectl describe deployments/nazwa_wdrożenia`."
+					]
+				},
+				{
+					"title": "Pody, Manifesty YAML i Pętla Uzgadniania",
+					"content": [
+						"Pod stanowi najmniejszy wdrażalny artefakt w klastrze Kubernetes i reprezentuje zbiór kontenerów aplikacji oraz woluminów współdzielących to samo środowisko wykonawcze i uruchamianych zawsze na tej samej maszynie.",
+						"Mimo że polecenie `kubectl run` tworzy pod w locie, w praktyce nie powołuje go bezpośrednio, lecz generuje obiekt Wdrożenia, który w dalszym etapie pętli automatycznie uruchamia pody.",
+						"Kontrolery systemu działają w oparciu o pętlę uzgadniania (reconciliation loop) – nieskończony proces stale porównujący stan pożądany (zdefiniowany w zasobach) ze stanem rzeczywistym klastra i wprowadzający korekty (np. natychmiastowe odtworzenie usuniętego podu).",
+						"Manualna edycja i modyfikacja wdrożeń realizowana jest poprzez deklaratywne pliki manifestu zasobów, najczęściej pisane w formacie YAML, które są przesyłane do klastra za pomocą komendy `kubectl apply -f sciezka_do_pliku.yaml`.",
+						"Gdy system podejmuje decyzję o powołaniu nowej repliki, pod trafia do kolejki obiektów niezaplanowanych, skąd harmonogram (Kubernetes Scheduler) pobiera go i przypisuje do optymalnego węzła na podstawie kryteriów zasobowych, a lokalny `kubelet` inicjuje uruchomienie kontenerów."
+					]
+				},
+				{
+					"title": "Zasoby sieciowe (Services) i Menedżer Pakietów Helm",
+					"content": [
+						"Zasób serwisowy (Service) umożliwia stabilną komunikację sieciową z podami, działając jako wewnętrzny serwer proxy i moduł równoważenia obciążenia (load balancer), przekazujący ruch z dowolnego portu na wskazany port zaplecza podów.",
+						"Serwis gwarantuje zestawowi podów pojedynczy, niezmienny w czasie adres IP lub dedykowaną nazwę DNS, która automatycznie i bezprzerwowo przekierowuje żądania do podów dopasowanych za pomocą selektora etykiet.",
+						"Tradycyjne manifesty YAML wymuszają liczne powtórzenia tych samych wartości (nazw, selektorów, portów); narzędzie Helm rozwiązuje ten problem jako menedżer pakietów, definiując te parametry raz w pliku (np. `values.yaml`).",
+						"Helm pozwala tworzyć uniwersalne pakiety konfiguracyjne zwane diagramami Helm (Helm Charts), które określają zasoby, ustawienia i zależności aplikacji, natomiast pojedyncza instancja takiego diagramu uruchomiona w klastrze nazywana jest wydaniem (release).",
+						"Zarządzanie wydaniami Helm w terminalu odbywa się za pomocą zestawu komend: instalacji (`helm install nazwa_wydania ./sciezka`), weryfikacji aktywnych wersji (`helm list`) oraz sprawdzania statusu technicznego zasobów (`helm status nazwa_wydania`)."
+					]
+				},
+				{
+					"title": "Zarządzanie wykorzystaniem zasobów obliczeniowych",
+					"content": [
+						"Użycie procesora w Kubernetes mierzone jest w jednostkach CPU i wyrażane najczęściej w milicpus/milicores (m), natomiast pamięć mierzona jest w bajtach lub mebibajtach (MiB).",
+						"Żądanie zasobów (Resource Request) określa minimalną ilość CPU i pamięci niezbędną do uruchomienia podu – jeśli żaden węzeł nie posiada wolnej, wnioskowanej przestrzeni, pod pozostanie w stanie oczekiwania (Pending).",
+						"Limit zasobów (Resource Limit) definiuje maksymalny pułap alokacji: pod przekraczający limit procesora zostanie ograniczony wydajnościowo (throttling), natomiast pod przekraczający dopuszczalny limit pamięci RAM zostanie natychmiast awaryjnie zamknięty przez system (OOMKilled).",
+						"Kubernetes pozwala na nadmierne przydzielanie zasobów (overcommitting), co oznacza, że suma limitów wszystkich kontenerów na danym węźle może legalnie przekroczyć jego realną pojemność fizyczną.",
+						"Wielkość samych obrazów kontenerów powinna być restrykcyjnie minimalizowana, ponieważ mniejsze kontenery budują się szybciej, zajmują mniej pamięci dyskowej, skracają czas pobierania z rejestru i drastycznie zmniejszają powierzchnię potencjalnego ataku sieciowego."
+					]
+				},
+				{
+					"title": "Sondy żywotności, gotowości oraz mechanizm budżetowy",
+					"content": [
+						"System wymaga precyzyjnej wiedzy o stanie aplikacji, dlatego udostępnia sondy żywotności (liveness probes) weryfikujące, czy kontener funkcjonuje poprawnie; niepowodzenie testu skutkuje automatycznym restartem kontenera.",
+						"W specyfikacji sond konfiguruje się parametry czasowe: `initialDelaySeconds` określa czas oczekiwania przed wykonaniem pierwszego testu (zapobiega to pętli nieskończonych restartów podczas startu aplikacji), a `periodSeconds` definiuje częstotliwość sprawdzania kondycji.",
+						"Sondy mogą przybierać formę odpytania HTTP, polecenia wewnątrz kontenera (`exec probe`), czy integracji z wydajnym binarnym protokołem sieciowym gRPC przy użyciu dedykowanego narzędzia zewnętrznego `grpc-health-probe`.",
+						"Sonda gotowości (readiness probe) posiada odmienną semantykę – sygnalizuje, czy aplikacja jest w stanie przyjmować ruch sieciowy; kontener, który nie przejdzie testu gotowości, zostaje natychmiast wycięty z routingu wszystkich powiązanych usług chmurowych.",
+						"Pole `minReadySeconds` wymusza, by pod był uznany za gotowy dopiero po utrzymaniu stabilnego statusu sukcesu przez określony czas, z kolei zasób budżetu zakłóceń (Pod Disruption Budget) chroni aplikację przed masowym wyłączeniem podów podczas operacji administratora przy użyciu parametrów `minAvailable` lub `maxUnavailable`."
+					]
+				},
+				{
+					"title": "Partycjonowanie klastra: Przestrzenie Nazw i Limity",
+					"content": [
+						"Przestrzeń nazw (Namespace) służy do logicznego partycjonowania jednego fizycznego klastra na odizolowane, niezależne podjednostki, zabezpieczając nazwy zasobów przed konfliktami w innych przestrzeniach.",
+						"Domyślne operacje `kubectl` wykonują się w przestrzeni `default`, natomiast wskazanie innej strefy wymaga użycia flagi `--namespace` lub `-n` (np. przestrzeń `kube-system` dedykowana jest dla wewnętrznych komponentów orkiestratora).",
+						"Usunięcie przestrzeni nazw za pomocą polecenia `kubectl delete -f` skutkuje nieodwracalnym, kaskadowym usunięciem wszystkich zasobów wewnątrz niej, ponieważ orkiestrator nie posiada mechanizmu blokady przed przypadkowym skasowaniem.",
+						"Komunikacja międzyusługowa między różnymi przestrzeniami nazw jest możliwa przy użyciu pełnego kwalifikowanego schematu DNS: `NAZWA_USLUGI.NAZWA_NAMESPACE.svc.cluster.local` (lub w skrócie: `nazwa_uslugi.nazwa_namespace`).",
+						"Do globalnego ograniczania alokacji w przestrzeni nazw służy obiekt `ResourceQuota` (wprowadzający sztywne limity np. na maksymalnie 100 równoległych podów), z kolei obiekt `LimitRange` pozwala narzucić domyślne, automatycznie dziedziczone żądania i limity zasobowe dla kontenerów, które nie zdefiniowały ich jawnie."
+					]
+				},
+				{
+					"title": "Optymalizacja kosztów chmurowych i infrastruktury klastra",
+					"content": [
+						"Optymalizacja finansowa wymaga redukcji liczby replik do poziomu tuż powyżej granicy gwarantującej spełnienie celów poziomu usług (SLO) oraz stosowania dodatków takich jak Vertical Pod Autoscaler (VPA), dostosowujących automatycznie żądania zasobów na podstawie realnego zużycia.",
+						"Pod kątem oszczędności infrastrukturalnych, węzły powinny być dobierane tak, by mieścić od 10 do 100 typowych podów (minimum 5), redukując odsetek tzw. zasobów osieroconych poniżej 5-10% – większe maszyny są efektywniejsze, gdyż system operacyjny zużywa proporcjonalnie mniej zasobów klastra.",
+						"Ignorowanym kosztem bywa pamięć dyskowa; należy unikać przewymiarowanych maszyn i przydzielać jak najmniejsze woluminy o najniższym akceptowalnym współczynniku IOPS i przepustowości.",
+						"Wraz z rozwojem systemów pojawiają się porzucone lub nieużywane zasoby (IP, load balancery, dyski, odcięte kontenery); dobrą praktyką jest stosowanie adnotacji metadanych właściciela (owner annotations), ułatwiających identyfikację osób odpowiedzialnych za dany zasób.",
+						"Dodatkowe techniki oszczędnościowe obejmują implementację narzędzi czyszczących bazę danych klastra z ukończonych zadań (np. `kube-job-cleaner`), zakup instancji zarezerwowanych na okres roku lub dwóch lat oraz stosowanie tanich instancji z możliwością wywłaszczenia (spot/preemptible) wraz z mechanizmem powinowactwa węzłów (node affinity) i automatycznym relokowaniem podów przez `Descheduler`."
+					]
+				}
+			],
+			"quiz": [
+				{
+					"question": "Które z poniższych obiektów Kubernetesa są bezpośrednio zaangażowane w podstawowy proces wdrażania i zarządzania aplikacją kontenerową?",
+					"options": [
+						{
+							"text": "Wdrożenia (Deployments)",
+							"isCorrect": true
+						},
+						{
+							"text": "Pody (Pods)",
+							"isCorrect": true
+						},
+						{
+							"text": "Usługi (Services)",
+							"isCorrect": true
+						},
+						{
+							"text": "Systemy inicjalizacji bare-metal systemd",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób zasób typu Wdrożenie (Deployment) realizuje nadzór nad uruchomionym oprogramowaniem?",
+					"options": [
+						{
+							"text": "Stale kontroluje środowisko sprzętowe serwera bare-metal",
+							"isCorrect": false
+						},
+						{
+							"text": "Działa jak program nadzorujący, rejestrując obraz kontenera i liczbę pożądanych replik",
+							"isCorrect": true
+						},
+						{
+							"text": "Zapewnia automatyczne ponowne uruchomienie kontenera, jeśli ten ulegnie awarii lub zostanie zamknięty",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Jaka jest bezpośrednia relacja pomiędzy obiektem typu Wdrożenie (Deployment) a obiektem ReplicaSet?",
+					"options": [
+						{
+							"text": "Wdrożenie zarządza podami bezpośrednio, całkowicie pomijając ReplicaSet",
+							"isCorrect": false
+						},
+						{
+							"text": "Wdrożenie automatycznie tworzy powiązany obiekt ReplicaSet do bezpośredniego zarządzania podami",
+							"isCorrect": true
+						},
+						{
+							"text": "ReplicaSet kontroluje zachowanie replik i podów, upewniając się, że ich liczba zgadza się ze specyfikacją",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Co dzieje się z obiektami ReplicaSet podczas wdrażania nowej wersji aplikacji chmurowej?",
+					"options": [
+						{
+							"text": "Wdrożenie modyfikuje stary obiekt ReplicaSet bez tworzenia nowych struktur",
+							"isCorrect": false
+						},
+						{
+							"text": "Tworzony jest zupełnie nowy obiekt ReplicaSet dedykowany do zarządzania nowymi podami",
+							"isCorrect": true
+						},
+						{
+							"text": "Po pomyślnym zakończeniu aktualizacji stary ReplicaSet oraz jego pody zostają wyłączone",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Czym z definicji jest Pod w architekturze orkiestratora Kubernetes?",
+					"options": [
+						{
+							"text": "Jest to najmniejszy wdrażalny artefakt w klastrze Kubernetes",
+							"isCorrect": true
+						},
+						{
+							"text": "Reprezentuje zbiór kontenerów aplikacji oraz woluminów działających w tym samym środowisku",
+							"isCorrect": true
+						},
+						{
+							"text": "Gwarantuje, że wszystkie kontenery wchodzące w jego skład są uruchamiane na tej samej maszynie",
+							"isCorrect": true
+						},
+						{
+							"text": "Jest to odizolowany serwer fizyczny zlokalizowany w serwerowni dostawcy chmury",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Na czym polega mechanizm działania pętli uzgadniania (reconciliation loop) w Kubernetes?",
+					"options": [
+						{
+							"text": "Wymusza na programiście manualne potwierdzenie każdego restartu podu",
+							"isCorrect": false
+						},
+						{
+							"text": "Stale porównuje pożądany stan określony w zasobach z rzeczywistym stanem klastra",
+							"isCorrect": true
+						},
+						{
+							"text": "Powtarza się w nieskończoność i automatycznie wprowadza niezbędne korekty w celu synchronizacji stanu",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób działa harmonogram (Kubernetes Scheduler) po zgłoszeniu zapotrzebowania na nową replikę podu?",
+					"options": [
+						{
+							"text": "Pobiera pod z kolejki obiektów niezaplanowanych i szuka dla niego odpowiedniego węzła",
+							"isCorrect": true
+						},
+						{
+							"text": "Bierze pod uwagę żądania zasobowe podu w celu dokonania optymalnego wyboru maszyny",
+							"isCorrect": true
+						},
+						{
+							"text": "Po przypisaniu podu do węzła, za jego faktyczne uruchomienie odpowiada działający tam kubelet",
+							"isCorrect": true
+						},
+						{
+							"text": "Zamyka losowe pody na innych maszynach, aby zwolnić pamięć bez sprawdzania limitów",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jakie funkcje i właściwości charakteryzują obiekt typu Serwis (Service) w środowisku Kubernetes?",
+					"options": [
+						{
+							"text": "Umożliwia stabilne i niezmienne połączenie sieciowe z wdrożonymi podami",
+							"isCorrect": true
+						},
+						{
+							"text": "Zapewnia pojedynczy, stały adres IP lub unikalną nazwę DNS dla zestawu podów zaplecza",
+							"isCorrect": true
+						},
+						{
+							"text": "Działa jak wewnętrzny serwer proxy lub moduł równoważenia obciążenia (load balancer)",
+							"isCorrect": true
+						},
+						{
+							"text": "Przekierowuje ruch sieciowy z dowolnego portu na inny port zgodnie ze specyfikacją",
+							"isCorrect": true
+						},
+						{
+							"text": "Służy do automatycznego kompilowania kodu źródłowego aplikacji z języka Go do kontenera",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Czym jest Helm i jakie problemy rozwiązuje w codziennej pracy z Kubernetesem?",
+					"options": [
+						{
+							"text": "Jest menedżerem pakietów dla systemu Kubernetes",
+							"isCorrect": true
+						},
+						{
+							"text": "Pozwala wyeliminować powtórzenia tych samych wartości w wielu manifestach YAML",
+							"isCorrect": true
+						},
+						{
+							"text": "Umożliwia tworzenie kompletnych pakietów definicji zasobów zwanych diagramami Helm",
+							"isCorrect": true
+						},
+						{
+							"text": "Służy do bezpośredniego partycjonowania pamięci RAM na poziomie jądra Linux",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "W jakich jednostkach wyrażane oraz mierzone są zasoby procesora i pamięci przydzielane podom?",
+					"options": [
+						{
+							"text": "Zasoby procesora wyrażane są w jednostkach CPU oraz milicpus / milicores",
+							"isCorrect": true
+						},
+						{
+							"text": "Pamięć mierzona jest standardowo w bajtach lub mebibajtach (MiB)",
+							"isCorrect": true
+						},
+						{
+							"text": "Procesor mierzony jest wyłącznie w gigahercach (GHz) przypisanych do kontenera",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jaka jest kluczowa różnica pomiędzy żądaniem zasobów (Resource Request) a limitem zasobów (Resource Limit)?",
+					"options": [
+						{
+							"text": "Żądanie określa minimalną ilość zasobów potrzebną do zaplanowania i uruchomienia podu",
+							"isCorrect": true
+						},
+						{
+							"text": "Limit określa maksymalną dopuszczalną ilość zasobów, z której pod może skorzystać",
+							"isCorrect": true
+						},
+						{
+							"text": "Pod przekraczający limit procesora zostanie ograniczony wydajnościowo (throttling)",
+							"isCorrect": true
+						},
+						{
+							"text": "Pod próbujący zużyć więcej pamięci niż wynosi jego limit zostanie natychmiast awaryjnie zamknięty",
+							"isCorrect": true
+						},
+						{
+							"text": "Przekroczenie limitu pamięci skutkuje automatycznym dokupieniem zasobów sprzętowych bez restartu",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Czym różni się semantyka działania sondy żywotności (liveness probe) od sondy gotowości (readiness probe)?",
+					"options": [
+						{
+							"text": "Sonda żywotności sprawdza, czy kontener w ogóle działa, a jej niepowodzenie skutkuje restartem",
+							"isCorrect": true
+						},
+						{
+							"text": "Sonda gotowości określa, czy aplikacja jest w stanie w danym momencie poprawnie obsługiwać ruch sieciowy",
+							"isCorrect": true
+						},
+						{
+							"text": "Kontener, który nie przejdzie testu gotowości, zostaje czasowo usunięty ze skojarzonych z nim usług",
+							"isCorrect": true
+						},
+						{
+							"text": "Sonda żywotności automatycznie usuwa pod z klastra i kasuje jego manifest YAML",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Do czego służy parametr 'initialDelaySeconds' w konfiguracji sond kondycji kontenera?",
+					"options": [
+						{
+							"text": "Określa czas, jaki system ma odczekać przed próbą wykonania pierwszej sondy po starcie kontenera",
+							"isCorrect": true
+						},
+						{
+							"text": "Zapobiega wpadnięciu aplikacji w pętlę ciągłych restartów, jeśli uruchamia się ona dłuższy czas",
+							"isCorrect": true
+						},
+						{
+							"text": "Definiuje, jak często sonda powinna być ponawiana w trakcie stabilnej pracy kontenera",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jakie zadanie spełnia pole 'minReadySeconds' oraz zasób Pod Disruption Budget w kontekście stabilności podów?",
+					"options": [
+						{
+							"text": "MinReadySeconds określa czas, przez który sonda gotowości musi stale zwracać sukces, by pod uznano za stabilny",
+							"isCorrect": true
+						},
+						{
+							"text": "Pod Disruption Budget określa limit podów danej aplikacji, które system może bezpiecznie wyłączyć w jednym momencie",
+							"isCorrect": true
+						},
+						{
+							"text": "Parametr minAvailable pozwala zdefiniować minimalną liczbę podów, które muszą stale działać",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Czym jest przestrzeń nazw (Namespace) w Kubernetesie i jakie niesie ze sobą implikacje praktyczne?",
+					"options": [
+						{
+							"text": "Jest to mechanizm logicznego partycjonowania klastra na odrębne podjednostki",
+							"isCorrect": true
+						},
+						{
+							"text": "Nazwy zasobów zdefiniowane w jednej przestrzeni nazw nie kolidują z identycznymi nazwami w innej",
+							"isCorrect": true
+						},
+						{
+							"text": "Usunięcie przestrzeni nazw automatycznie i bezpowrotnie kasuje wszystkie zasoby, które się w niej znajdują",
+							"isCorrect": true
+						},
+						{
+							"text": "Całkowicie blokuje jakąkolwiek komunikację sieciową z usługami w innych przestrzeniach nazw",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób usługi zlokalizowane w różnych przestrzeniach nazw mogą się ze sobą komunikować?",
+					"options": [
+						{
+							"text": "Komunikacja między przestrzeniami nazw jest technicznie niemożliwa",
+							"isCorrect": false
+						},
+						{
+							"text": "Za pomocą pełnego schematu sieciowej nazwy DNS: SERVICE.NAMESPACE.svc.cluster.local",
+							"isCorrect": true
+						},
+						{
+							"text": "Wpisując skrócony adres w formacie nazwa_uslugi.nazwa_namespace (np. demo.test)",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Do czego służą oraz jak działają obiekty ResourceQuota i LimitRange w przestrzeniach nazw?",
+					"options": [
+						{
+							"text": "ResourceQuota nakłada twardy limit na łączną liczbę zasobów (np. maksymalnie 100 podów w danym namespace)",
+							"isCorrect": true
+						},
+						{
+							"text": "LimitRange pozwala ustawić domyślne żądania i limity zasobów dla kontenerów, które nie określiły ich jawnie",
+							"isCorrect": true
+						},
+						{
+							"text": "ResourceQuota automatycznie usuwa pody deweloperów, jeśli generują oni zbyt mały ruch sieciowy",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób dodatek Vertical Pod Autoscaler (VPA) oraz odpowiedni dobór węzłów pomagają w optymalizacji kosztów klastra?",
+					"options": [
+						{
+							"text": "VPA monitoruje wdrożenie i automatycznie dostosowuje żądania zasobów na podstawie realnego zużycia",
+							"isCorrect": true
+						},
+						{
+							"text": "Większe węzły (mieszczące od 10 do 100 podów) są zazwyczaj bardziej opłacalne niż małe maszyny",
+							"isCorrect": true
+						},
+						{
+							"text": "Większe maszyny redukują odsetek zasobów osieroconych, ponieważ system zużywa mniejszą część klastra",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Dlaczego stosowanie adnotacji właściciela (owner annotations) jest uznawane za najlepszą praktykę zarządzania kosztami?",
+					"options": [
+						{
+							"text": "Pozwala przypisać do zasobu metadane o osobie lub zespole odpowiedzialnym za dany komponent",
+							"isCorrect": true
+						},
+						{
+							"text": "Ułatwia sprawną identyfikację oraz usuwanie porzuconych lub nieużywanych zasobów w chmurze",
+							"isCorrect": true
+						},
+						{
+							"text": "Automatycznie szyfruje pliki konfiguracyjne YAML przed dostępem osób trzecich",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jakie inne techniki infrastrukturalne pozwalają zminimalizować koszty utrzymania środowiska rozproszonego?",
+					"options": [
+						{
+							"text": "Wykorzystanie stabilnych i tańszych instancji zarezerwowanych w chmurze przy długoterminowych potrzebach",
+							"isCorrect": true
+						},
+						{
+							"text": "Stosowanie tanich instancji z możliwością wywłaszczenia (spot / preemptible) dla mniej krytycznych obciążeń",
+							"isCorrect": true
+						},
+						{
+							"text": "Użycie narzędzia Descheduler do relokacji i eliminacji zduplikowanych podów działających na tym samym węźle",
+							"isCorrect": true
+						},
+						{
+							"text": "Utrzymywanie zerowej zapasowej pojemności klastra, ignorując ryzyko awarii węzła roboczego",
+							"isCorrect": false
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 4,
+			"title": "Wykład 4: Skalowanie, Bezpieczeństwo, Inżynieria Chaosu i Zaawansowane Funkcje kubectl",
+			"sections": [
+				{
+					"title": "Określanie rozmiaru i skalowanie klastrów",
+					"content": [
+						"Właściwe planowanie pojemności klastra ma kluczowe znaczenie: zbyt mała pojemność powoduje błędy i awarie obciążeń pod dużym ruchem, natomiast zbyt duża generuje niepotrzebne koszty finansowe.",
+						"Najmniejszy możliwy klaster składa się z pojedynczego węzła dedykowanego do celów deweloperskich, jednak nie zapewnia on żadnej odporności na awarie.",
+						"Dla klastrów zarządzanych (np. GKE) dostawca automatycznie aprowizuje warstwę kontrolną , podczas gdy klastry hostowane samodzielnie wymagają minimum trzech węzłów głównych (Master) dla zapewnienia wysokiej dostępności.",
+						"Do zachowania odporności obciążeń na awarię fizycznej maszyny wymagane są minimum dwa węzły robocze (Worker Nodes), choć konfiguracja z trzema węzłami jest zalecanym standardem.",
+						"Kubernetes posiada oficjalne ograniczenia skalowalności (w wersji 1.12): pojedynczy klaster obsługuje maksymalnie 5000 węzłów, 150 000 podów, 300 000 kontenerów oraz limit do 100 podów na jeden węzeł ze względu na wykładniczy wzrost obciążenia bazy danych."
+					]
+				},
+				{
+					"title": "Topologia klastrów i zarządzanie węzłami",
+					"content": [
+						"Większość organizacji nie potrzebuje zaawansowanej federacji klastrów; do celów segregacji i łatwiejszego zarządzania obciążeniami w obrębie jednej infrastruktury w zupełności wystarcza stosowanie przestrzeni nazw (Namespaces).",
+						"Kubernetes umożliwia logiczne ujednolicenie i łączenie maszyn o skrajnie różnych rozmiarach, architekturach oraz możliwościach w jedną spójną całość.",
+						"Zaleca się stosowanie najbardziej opłacalnych typów instancji u dostawców chmurowych, bazując głównie na systemie Linux, z ewentualnym wydzieleniem dedykowanych węzłów z GPU lub systemem Windows dla specyficznych zadań.",
+						"Przed fizycznym usunięciem lub wyłączeniem węzła z klastra należy go bezwzględnie opróżnić za pomocą polecenia `kubectl drain`, co gwarantuje bezpieczne i kontrolowane przeniesienie uruchomionych podów na pozostałe zdrowe maszyny.",
+						"Automatyczne skalowanie klastra nie powinno być włączane bez wcześniejszej analizy; zaleca się wstępne ręczne skalowanie i automatyzację dopiero w sytuacji, gdy profil obciążeń biznesowych cechuje się wysoką zmiennością w czasie."
+					]
+				},
+				{
+					"title": "Certyfikacja i testy zgodności standardów",
+					"content": [
+						"Cloud Native Computing Foundation (CNCF) egzekwuje rygorystyczne testy zgodności – każdy produkt komercyjny wykorzystujący w nazwie słowo 'Kubernetes' musi posiadać certyfikat CNCF i być aktualizowany minimum raz w roku.",
+						"Certyfikat CKA (Certified Kubernetes Administrator) weryfikuje kluczowe umiejętności inżyniera w zakresie konfiguracji, instalacji, sieci, bezpieczeństwa oraz rozwiązywania problemów produkcyjnych.",
+						"Do weryfikacji poprawnej, zgodnej ze standardami konfiguracji własnego nowo powołanego klastra służy oficjalne narzędzie Sonobuoy firmy Heptio wraz z interfejsem graficznym Sonobuoy Scanner."
+					]
+				},
+				{
+					"title": "Walidacja bezpieczeństwa i logi audytowe",
+					"content": [
+						"Testy zgodności standardów nie wykrywają typowych błędów konfiguracyjnych, takich jak definiowanie tylko jednej repliki wdrożenia, marnowanie zasobów przez zbyt duże obrazy czy krytyczne zagrożenie uruchamiania procesów wewnątrz kontenerów z uprawnieniami roota.",
+						"Narzędzie K8Guard automatycznie skanuje klaster pod kątem naruszeń bezpieczeństwa, wysyła alerty i eksportuje metryki wydajności odpowiedzi API bezpośrednio do systemu Prometheus.",
+						"Narzędzie Copper służy do statycznej walidacji plików manifestów przed ich wdrożeniem do klastra za pomocą dedykowanego języka reguł DSL , narzędzie Kubeval sprawdza poprawność składniową z oficjalnym API , a kube-bench audytuje infrastrukturę pod kątem rygorystycznych wytycznych bezpieczeństwa CIS (Center for Internet Security).",
+						"Włączenie rejestrowania audytu (Audit Logging) pozwala na precyzyjne zapisywanie każdego żądania skierowanego do API klastra, uwzględniając znacznik czasu, tożsamość użytkownika, typ zasobu oraz ostateczną odpowiedź systemu."
+					]
+				},
+				{
+					"title": "Inżynieria Chaosu (Chaos Engineering) w Kubernetes",
+					"content": [
+						"Jedynym miarodajnym testem wysokiej dostępności i odporności systemu jest celowe, zautomatyzowane i ciągłe niszczenie elementów środowiska produkcyjnego (tzw. testowanie Chaos Monkey).",
+						"Wyróżnia się specjalistyczne narzędzia inżynierii chaosu: Latency Monkey (wstrzykiwanie sztucznych opóźnień sieciowych), Security Monkey (poszukiwanie podatności) oraz Chaos Gorilla (całkowita symulacja awarii strefy dostępności chmury).",
+						"Narzędzie Chaoskube losowo usuwa pody w klastrze, udostępniając bezpieczny tryb próbny (dry-run) oraz zaawansowane filtry wykluczające wybrane przestrzenie nazw lub daty.",
+						"Narzędzie kube-monkey działa w trybie opt-in, niszcząc wyłącznie te pody, których wdrożenia jawnie zezwoliły na to poprzez adnotacje, określając parametry takie jak MTBF oraz procentową/losową strategię likwidacji instancji.",
+						"Narzędzie PowerfulSeal oferuje zarówno tryb interaktywny do manualnego testowania podatności klastra, jak i tryb autonomiczny wykonujący agresywne scenariusze niszczenia węzłów i podów w oparciu o z góry zdefiniowany zestaw reguł."
+					]
+				},
+				{
+					"title": "Zaawansowana obsługa CLI i optymalizacja pracy z kubectl",
+					"content": [
+						"Efektywność pracy z CLI zwiększa konfiguracja aliasów powłoki (np. `alias k=kubectl`, `alias kg='kubectl get'`)  oraz wykorzystanie natywnego skracania nazw zasobów (np. `po` dla podów, `deploy` dla wdrożeń, `svc` dla usług, `ns` dla przestrzeni nazw, `cm` dla map konfiguracji).",
+						"Skrócone flagi takie jak `-n` (zamiast `--namespace`) oraz `-l` (zamiast `--selector` dla filtrowania etykiet) znacząco przyspieszają interakcję z systemem.",
+						"Pomoc techniczną i dokumentację struktury obiektów bezpośrednio w terminalu można wywołać za pomocą komend `kubectl completion -h` (automatyczne uzupełnianie klawiszem Tab) , `kubectl COMMAND -h`  oraz strukturalnego `kubectl explain pods`.",
+						"Do monitorowania zmian stanu zasobów w czasie rzeczywistym służy wbudowana flaga `kubectl get pods --watch`  lub zewnętrzne narzędzie kubespy, z kolei flaga `-o wide` rozszerza standardowy widok tekstowy o adresy IP i nazwy węzłów roboczych."
+					]
+				},
+				{
+					"title": "Formatowanie danych, inspekcja i polecenia imperatywne",
+					"content": [
+						"Kubectl umożliwia zrzut pełnej konfiguracji w formacie JSON (`-o json`) , co pozwala na zaawansowane filtrowanie, agregowanie i transformację danych za pomocą potężnego zewnętrznego narzędzia CLI `jq` lub platformy internetowej `jqplay.org`.",
+						"Do celów diagnostycznych system udostępnia polecenia pobierania logów `kubectl logs` (z flagami `--tail` ograniczającą linie oraz `--follow` do ciągłego strumieniowania) , polecenie `kubectl attach` do podpięcia lokalnego terminala  oraz `kubectl port-forward` do bezpośredniego tunelowania portu podu.",
+						"W środowiskach produkcyjnych zabrania się stosowania komend imperatywnych bezpośrednio modyfikujących zasoby (takich jak `kubectl create` czy `kubectl edit`), ponieważ uniemożliwiają one audytowalność zmian; należy zawsze stosować deklaratywne manifesty YAML objęte systemem kontroli wersji i wdrażane przez `kubectl apply`.",
+						"Komendy imperatywne są natomiast wysoce użyteczne w procesie tworzenia nowych manifestów od zera – połączenie flag `--dry-run=client` oraz `-o yaml` pozwala wygenerować czysty, poprawny szablon YAML bez faktycznego powoływania obiektu w klastrze.",
+						"Do interaktywnego debugowania sieci i infrastruktury wewnątrz klastra wykorzystuje się mechanizm `kubectl run` z flagami `-it --rm --restart=Never` uruchamiający wyspecjalizowane, lekkie obrazy diagnostyczne takie jak `busybox` (narzędzia nslookup, wget) lub czyste dystrybucje `alpine` i `ubuntu`.",
+						"Zarządzanie połączeniami z wieloma niezależnymi środowiskami realizowane jest za pomocą Kontekstów (Contexts), stanowiących logiczne połączenie parametrów konkretnego klastra, użytkownika oraz przestrzeni nazw, kontrolowanych poleceniami z serii `kubectl config`."
+					]
+				}
+			],
+			"quiz": [
+				{
+					"question": "Od jakich czynników zależy poprawne i efektywne dobranie rozmiaru oraz skalowanie klastra Kubernetes?",
+					"options": [
+						{
+							"text": "Od liczby zainstalowanych systemów kontroli wersji na stacjach programistów",
+							"isCorrect": false
+						},
+						{
+							"text": "Od specyfiki i profilu zapotrzebowania konkretnych obciążeń aplikacyjnych",
+							"isCorrect": true
+						},
+						{
+							"text": "Od unikania sytuacji, w której pojemność jest zbyt mała, co prowadzi do awarii pod dużym ruchem",
+							"isCorrect": true
+						},
+						{
+							"text": "Od unikania nadmiernej, niewykorzystanej pojemności, która generuje marnowanie pieniędzy",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Jakie są minimalne wymagania ilościowe dotyczące węzłów klastra w celu zapewnienia wysokiej dostępności i odporności na awarie?",
+					"options": [
+						{
+							"text": "Dla klastrów hostowanych samodzielnie wymagane są co najmniej trzy węzły główne (Master Nodes)",
+							"isCorrect": true
+						},
+						{
+							"text": "Minimum dwa węzły robocze (Worker Nodes) są niezbędne, aby obciążenia tolerowały awarię jednej maszyny",
+							"isCorrect": true
+						},
+						{
+							"text": "Pojedynczy węzeł w zupełności wystarcza do zachowania pełnej odporności High Availability w produkcji",
+							"isCorrect": false
+						},
+						{
+							"text": "Konfiguracja z trzema węzłami roboczymi jest rozwiązaniem lepszym i bezpieczniejszym niż absolutne minimum",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Które z podanych limitów określają oficjalne, maksymalne możliwości skalowania pojedynczego klastra Kubernetes (w wersji 1.12)?",
+					"options": [
+						{
+							"text": "Maksymalnie do 5000 węzłów w klastrze",
+							"isCorrect": true
+						},
+						{
+							"text": "Łącznie nie więcej niż 150 000 podów w strukturze całego systemu",
+							"isCorrect": true
+						},
+						{
+							"text": "Łącznie maksymalnie do 300 000 działających kontenerów",
+							"isCorrect": true
+						},
+						{
+							"text": "Nie więcej niż 100 podów uruchomionych na jednym węźle roboczym",
+							"isCorrect": true
+						},
+						{
+							"text": "Klaster może rosnąć w sposób nieskończony bez obciążania centralnej bazy danych",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób można najefektywniej wykorzystać infrastrukturę i istniejące maszyny za pomocą orkiestratora Kubernetes?",
+					"options": [
+						{
+							"text": "Wymusza on bezwzględną federację klastrów dla każdego małego wdrożenia",
+							"isCorrect": false
+						},
+						{
+							"text": "Pozwala łączyć maszyny o skrajnie różnych rozmiarach, architekturach i możliwościach w jedną logiczną maszynę",
+							"isCorrect": true
+						},
+						{
+							"text": "Umożliwia uruchamianie obciążeń kontenerowych na istniejących serwerach sprzętowych posiadających wolną pojemność",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Jakie są dobre praktyki i zalecenia dotyczące procedury usuwania węzłów roboczych z działającego klastra?",
+					"options": [
+						{
+							"text": "Należy najpierw opróżnić węzeł poleceniem kubectl drain, aby bezpiecznie przenieść pody w inne miejsce",
+							"isCorrect": true
+						},
+						{
+							"text": "Nie wolno gwałtownie wyłączać maszyn bez uprzedniego upewnienia się, że w klastrze jest zapasowa pojemność",
+							"isCorrect": true
+						},
+						{
+							"text": "Węzły należy usuwać wyłącznie w godzinach szczytu bez wcześniejszego informowania warstwy kontrolnej",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Które ze stwierdzeń prawidłowo opisują zasady certyfikacji oprogramowania i inżynierów przez organizację CNCF?",
+					"options": [
+						{
+							"text": "Każdy produkt zawierający w nazwie słowo 'Kubernetes' musi posiadać oficjalny certyfikat CNCF",
+							"isCorrect": true
+						},
+						{
+							"text": "Certyfikowane produkty muszą śledzić najnowsze wydania i zapewniać aktualizacje minimum raz w roku",
+							"isCorrect": true
+						},
+						{
+							"text": "Egzamin CKA weryfikuje kluczowe umiejętności zarządzania klastrami w środowisku produkcyjnym",
+							"isCorrect": true
+						},
+						{
+							"text": "Program KCSP wymaga od dostawcy zatrudniania co najmniej trzech inżynierów z certyfikatem CKA",
+							"isCorrect": true
+						},
+						{
+							"text": "CNCF zakazuje stosowania systemu Linux na węzłach roboczych",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Do czego służy i w jaki sposób wykorzystywane jest narzędzie Sonobuoy w kontekście weryfikacji klastra?",
+					"options": [
+						{
+							"text": "Służy do automatycznego przeprowadzania testów zgodności (conformance tests) Kubernetes",
+							"isCorrect": true
+						},
+						{
+							"text": "Weryfikuje, czy klaster jest poprawnie skonfigurowany i aktualny względem oficjalnych standardów",
+							"isCorrect": true
+						},
+						{
+							"text": "Działa jako internetowy konfigurator generujący szablony automatyzacji dla dostawców chmury",
+							"isCorrect": false
+						},
+						{
+							"text": "Zaleca się jego uruchomienie po pierwszej konfiguracji oraz cyklicznie od czasu do czasu",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Jakie typowe problemy konfiguracyjne i zagrożenia bezpieczeństwa w klastrze pozostają niewykryte przez standardowe testy zgodności?",
+					"options": [
+						{
+							"text": "Uruchamianie procesów wewnątrz kontenerów z uprawnieniami roota",
+							"isCorrect": true
+						},
+						{
+							"text": "Definiowanie wdrożeń, które posiadają wyłącznie jedną replikę poda",
+							"isCorrect": true
+						},
+						{
+							"text": "Wykorzystywanie zbyt dużych obrazów kontenerów, co marnuje czas i zasoby klastra",
+							"isCorrect": true
+						},
+						{
+							"text": "Stosowanie deklaratywnych manifestów w formacie YAML",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Za jakie zadania odpowiada system bezpieczeństwa K8Guard w klastrze Kubernetes?",
+					"options": [
+						{
+							"text": "Weryfikuje typowe problemy i potrafi automatycznie podejmować działania naprawcze lub wysyłać powiadomienia",
+							"isCorrect": true
+						},
+						{
+							"text": "Eksportuje metryki naruszenia zasad oraz wydajności interfejsu API bezpośrednio do systemu Prometheus",
+							"isCorrect": true
+						},
+						{
+							"text": "Służy do bezpośredniej kompilacji binarnej obrazów scratch",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jakie funkcje realizują odpowiednio narzędzia walidacyjne Copper, Kubeval oraz kube-bench?",
+					"options": [
+						{
+							"text": "Copper sprawdza manifesty przed wdrożeniem i egzekwuje niestandardowe zasady za pomocą języka DSL",
+							"isCorrect": true
+						},
+						{
+							"text": "Kubeval weryfikuje poprawność plików manifestów pod kątem oficjalnej specyfikacji API Kubernetes",
+							"isCorrect": true
+						},
+						{
+							"text": "Kube-bench audytuje klaster pod kątem zgodności z najlepszymi praktykami bezpieczeństwa benchmarków CIS",
+							"isCorrect": true
+						},
+						{
+							"text": "Wszystkie trzy narzędzia służą wyłącznie do wstrzykiwania sztucznych opóźnień sieciowych",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jakie informacje są rejestrowane w logach audytowych (Audit Logging) interfejsu API klastra?",
+					"options": [
+						{
+							"text": "Dokładny znacznik czasu określający moment wysłania żądania",
+							"isCorrect": true
+						},
+						{
+							"text": "Tożsamość podmiotu (kto) wysłał konkretne zapytanie do API",
+							"isCorrect": true
+						},
+						{
+							"text": "Szczegółowe dane dotyczące zasobów, do których zostało skierowane żądanie, oraz treść odpowiedzi",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Na czym polega idea Inżynierii Chaosu (Chaos Engineering) i testowania odporności systemów rozproszonych?",
+					"options": [
+						{
+							"text": "Na ręcznym i sporadycznym usuwaniu losowych baz danych raz w roku",
+							"isCorrect": false
+						},
+						{
+							"text": "Na zautomatyzowanej, losowej i ciągłej ingerencji w stabilność działających usług produkcyjnych",
+							"isCorrect": true
+						},
+						{
+							"text": "Na weryfikacji, czy po zamknięciu podu Kubernetes poprawnie go zrestartuje bez wzrostu wskaźnika błędów",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Jakie funkcje i obszary destrukcji realizują odpowiednio narzędzia Latency Monkey, Security Monkey oraz Chaos Gorilla?",
+					"options": [
+						{
+							"text": "Latency Monkey wprowadza sztuczne opóźnienia w komunikacji sieciowej",
+							"isCorrect": true
+						},
+						{
+							"text": "Security Monkey wyszukuje i identyfikuje znane luki w zabezpieczeniach",
+							"isCorrect": true
+						},
+						{
+							"text": "Chaos Gorilla symuluje katastrofę poprzez usunięcie całej strefy dostępności AWS",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Czym charakteryzuje się narzędzie do inżynierii chaosu o nazwie Chaoskube?",
+					"options": [
+						{
+							"text": "Losowo wyłącza pody wewnątrz klastra",
+							"isCorrect": true
+						},
+						{
+							"text": "Posiada tryb próbny (dry-run), który jedynie wizualizuje skutki działań bez realnego zabijania podów",
+							"isCorrect": true
+						},
+						{
+							"text": "Umożliwia precyzyjne filtrowanie obiektów docelowych na podstawie etykiet, adnotacji oraz przestrzeni nazw",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób realizowane są scenariusze wyłączeń podów przez oprogramowanie kube-monkey?",
+					"options": [
+						{
+							"text": "Działa na zasadzie opt-in: niszczy wyłącznie te pody, które wyraźnie na to zezwoliły przy użyciu adnotacji",
+							"isCorrect": true
+						},
+						{
+							"text": "Uruchamia się o ustalonej godzinie i tworzy sztywny harmonogram wdrożeń niszczących na dany dzień",
+							"isCorrect": true
+						},
+						{
+							"text": "Pozwala na konfigurację parametrów takich jak średni czas między awariami (MTBF) oraz tryb kill-mode",
+							"isCorrect": true
+						},
+						{
+							"text": "Ignoruje adnotacje programistów i bezwzględnie kasuje całą płaszczyznę sterowania klastra",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "W jakich dwóch trybach pracy funkcjonuje zaawansowany system testowania chaosu PowerfulSeal?",
+					"options": [
+						{
+							"text": "W trybie interaktywnym, pozwalającym manualnie eksplorować klaster i celowo psuć poszczególne elementy",
+							"isCorrect": true
+						},
+						{
+							"text": "W trybie autonomicznym, działającym w oparciu o zestaw zdefiniowanych reguł, określających agresywność działań",
+							"isCorrect": true
+						},
+						{
+							"text": "W trybie kompilacji kodu źródłowego, optymalizującym zużycie mebibajtów",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Które z podanych zestawów aliasów i skrótów są natywnie obsługiwane lub powszechnie stosowane w celu przyspieszenia pracy z kubectl?",
+					"options": [
+						{
+							"text": "Stosowanie skróconych nazw zasobów: po (pod), deploy (deployment), svc (service), ns (namespace), no (node)",
+							"isCorrect": true
+						},
+						{
+							"text": "Skracanie flag: -n zamiast --namespace oraz -l zamiast --selector",
+							"isCorrect": true
+						},
+						{
+							"text": "Definiowanie aliasów powłoki systemowej takich jak 'alias k=kubectl' czy 'alias kg=kubectl get'",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Za pomocą jakich poleceń CLI można uzyskać pomoc techniczną oraz dokumentację struktur obiektów API Kubernetes?",
+					"options": [
+						{
+							"text": "Kubectl completion -h w celu wyświetlenia instrukcji automatycznego uzupełniania klawiszem Tab",
+							"isCorrect": true
+						},
+						{
+							"text": "Kubectl COMMAND -h (np. kubectl get -h) dla szczegółowych opcji i przykładów konkretnego polecenia",
+							"isCorrect": true
+						},
+						{
+							"text": "Kubectl explain, które bezpośrednio wyświetla dokumentację oraz opis pól danego typu zasobu (np. kubectl explain pods)",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Dlaczego stosowanie poleceń imperatywnych (create, edit, delete) bezpośrednio na klastrach produkcyjnych jest uznawane za błąd architektoniczny?",
+					"options": [
+						{
+							"text": "Ponieważ nie ma trwałego sposobu, aby dowiedzieć się, kto, kiedy i z jakim skutkiem uruchomił dane polecenie",
+							"isCorrect": true
+						},
+						{
+							"text": "Wszelkie zmiany w produkcji powinny być wprowadzane deklaratywnie przez pliki manifestów z kontrolą wersji",
+							"isCorrect": true
+						},
+						{
+							"text": "Polecenia te fizycznie niszczą podzespoły mechaniczne serwerów w szafach rack",
+							"isCorrect": false
+						},
+						{
+							"text": "Manifesty YAML z wersjonowaniem powinny być aplikowane bezpiecznie za pomocą polecenia kubectl apply",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób można efektywnie wykorzystać polecenia imperatywne oraz diagnostyczne w procesie deweloperskim i debugowaniu?",
+					"options": [
+						{
+							"text": "Flagi --dry-run=client oraz -o yaml pozwalają wygenerować i zapisać poprawny szablon manifestu YAML do pliku",
+							"isCorrect": true
+						},
+						{
+							"text": "Polecenie kubectl logs (z flagami --tail oraz --follow) umożliwia sprawne przeglądanie i strumieniowanie logów",
+							"isCorrect": true
+						},
+						{
+							"text": "Konstrukcja kubectl run z flagami --rm -it --restart=Never pozwala uruchomić interaktywny kontener debugujący (np. busybox)",
+							"isCorrect": true
+						},
+						{
+							"text": "Koncepcja kontekstów (Contexts) w pliku konfiguracyjnym pozwala powiązać i przełączać kombinację klastra, użytkownika i przestrzeni nazw",
+							"isCorrect": true
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 5,
+			"title": "Wykład 5: Izolacja Kontenerów, Woluminy, Zarządzanie Konfiguracją i Sekrety",
+			"sections": [
+				{
+					"title": "Mechanizmy izolacji procesów kontenerowych",
+					"content": [
+						"Z punktu widzenia systemu operacyjnego kontener reprezentuje odizolowany proces (lub grupę procesów) istniejący we własnej, dedykowanej przestrzeni nazw (Namespace).",
+						"Wszystkie procesy w tradycyjnym systemie współdzielą tę samą globalną przestrzeń nazw, widząc się wzajemnie i korzystając ze wspólnej puli zasobów (CPU, pamięć, system plików). Izolacja kontenerowa przełamuje tę zasadę.",
+						"Choć technicznie w jednym kontenerze można uruchomić dowolną liczbę procesów, najlepszą praktyką jest realizacja zasady 'jednej czynności' (single responsibility). Ułatwia to niezależne skalowanie i pełne wykorzystanie zalet izolacji zasobowej.",
+						"Wzorzec aplikacji Twelve-Factor rygorystycznie zabrania uruchamiania procesów demona (np. systemd) wewnątrz kontenera. Proces powinien działać w tle jako zadanie pierwszoplanowe (foreground).",
+						"Podstawowym narzędziem niskopoziomowym do tworzenia i uruchamiania kontenerów w systemie Linux jest `runc`, zgodny ze standardem OCI (Open Container Initiative). Gwarantuje to wysoką przenośność obrazów między platformami różnych dostawców."
+					]
+				},
+				{
+					"title": "Utrzymywanie danych za pomocą Woluminów (Volumes)",
+					"content": [
+						"Domyślny warstwowy system plików kontenera jest efemeryczny (ulotny). Po awarii lub restarcie kontenera przez Kubernetes, wszelkie lokalne modyfikacje danych zostają bezpowrotnie utracone.",
+						"W celu trwałego zachowania danych (persistence) stosuje się Woluminy (Volumes). Wolumin to zasób reprezentujący katalog z danymi, do którego kontenery w podzie uzyskują bezpośredni dostęp (podmontowanie).",
+						"Wolumin jest współdzielony przez wszystkie kontenery działające w obrębie jednego poda, a jego cykl życia jest niezależny od cyklu życia poszczególnych kontenerów – dane przetrwają restarty procesów.",
+						"Najprostszym typem woluminu tymczasowego jest `emptyDir`. Tworzy on pusty katalog w momencie przypisania poda do węzła i istnieje tak długo, jak długo pod działa na tej maszynie. Awaria kontenera nie kasuje danych z `emptyDir`, ale usunięcie poda niszczy wolumin bezpowrotnie.",
+						"Typ `hostPath` umożliwia podmontowanie do kontenera konkretnego katalogu bezpośrednio z systemu plików węzła roboczego (hosta). Jest wysoce użyteczny w narzędziach systemowych wymagających głębokiego wglądu w maszynę."
+					]
+				},
+				{
+					"title": "Abstrakcja trwałej pamięci masowej: PV i PVC",
+					"content": [
+						"W środowiskach chmurowych stosowanie woluminów powiązanych ze sprzętem (jak `hostPath`) uniemożliwia swobodną migrację podów między węzłami. Rozwiązaniem są sieciowe zasoby pamięci masowej (np. AWS EBS, Google Persistent Disk, Azure Disk).",
+						"PersistentVolume (PV) to zasób klastra reprezentujący rzeczywisty element pamięci masowej (np. dysk sieciowy), skonfigurowany globalnie przez administratora systemów.",
+						"PersistentVolumeClaim (PVC) to żądanie zasobu masowego tworzone przez programistę. Definiuje ono parametry takie jak wymagany rozmiar dysku (np. 10 GiB) oraz tryb dostępu (Access Mode).",
+						"Wyróżnia się trzy podstawowe tryby dostępu: `ReadWriteOnce` (RWO – montowanie jako do zapisu/odczytu przez tylko jeden węzeł), `ReadOnlyMany` (ROM – tylko do odczytu przez wiele węzłów) oraz `ReadWriteMany` (RWM – zapis/odczyt przez wiele węzłów jednocześnie).",
+						"Niewłaściwa konfiguracja trybu (np. próba zapisu z wielu maszyn na dysk obsługujący tylko RWO) uniemożliwi uruchomienie poda. Ręczna aprowizacja PV bywa nieefektywna, dlatego nowoczesne klastry wykorzystują dynamiczne tworzenie dysków chmurowych w oparciu o obiekt `StorageClass`."
+					]
+				},
+				{
+					"title": "Zarządzanie konfiguracją poprzez ConfigMaps",
+					"content": [
+						"Zgodnie z zasadami Twelve-Factor architektura cloud-native wymaga bezwzględnego oddzielenia kodu źródłowego aplikacji od jej konfiguracji środowiskowej.",
+						"Obiekt ConfigMap służy do centralnego przechowywania danych niejawnych w postaci par klucz-wartość (konfiguracje, flagi, adresy URL). Pozwala to na uruchamianie dokładnie tego samego obrazu kontenera w środowisku deweloperskim, testowym i produkcyjnym.",
+						"Aplikacja może konsumować dane z ConfigMap na dwa sposoby: poprzez wstrzyknięcie wartości do zmiennych środowiskowych kontenera (podczas startu) lub jako pliki w podmontowanym woluminie konfiguracyjnym.",
+						"Jeśli ConfigMap zostanie zmodyfikowany w locie, wartości wstrzyknięte jako zmienne środowiskowe NIE ulegną aktualizacji do czasu restartu kontenera. Z kolei konfiguracja zamontowana jako wolumin plikowy zostanie automatycznie zaktualizowana przez Kubernetes bez restartu aplikacji (w ciągu kilku minut)."
+					]
+				},
+				{
+					"title": "Bezpieczne przechowywanie danych poufnych (Secrets)",
+					"content": [
+						"Dane wrażliwe, takie jak hasła, klucze API, certyfikaty SSL czy tokeny, wymagają wyższego poziomu ochrony i nie mogą być przechowywane w ConfigMaps. Służy do tego obiekt typu Secret.",
+						"Domyślnie Kubernetes przechowuje sekrety w bazie danych etcd w postaci niezaszyfrowanej, jedynie zakodowane algorytmem Base64. Base64 NIE jest formą szyfrowania – każdy może łatwo odkodować te wartości, dlatego dostęp do sekretów musi być restrykcyjnie ograniczany za pomocą polityk RBAC.",
+						"Wartości sekretów są bezpiecznie mapowane do pamięci RAM maszyn roboczych przy użyciu systemu plików `tmpfs`, co zapobiega ich fizycznemu zapisaniu na dyskach twardych węzłów.",
+						"Podobnie jak ConfigMaps, sekrety mogą być mapowane do zmiennych środowiskowych kontenera lub wstrzykiwane jako wolumin plikowy. Metoda woluminu jest bezpieczniejsza, ponieważ minimalizuje ryzyko przypadkowego wycieku hasła do logów systemowych podczas awarii aplikacji."
+					]
+				},
+				{
+					"title": "Zaawansowane zarządzanie i szyfrowanie sekretów",
+					"content": [
+						"Tradycyjne przechowywanie sekretów w repozytoriach Git w czystej postaci grozi krytycznym incydentem bezpieczeństwa. Do Git należy bezwzględnie wypychać wyłącznie zaszyfrowane pliki.",
+						"Narzędzie SOPS (Secrets Operations) od Mozilli umożliwia selektywne szyfrowanie pojedynczych wartości tajnych w plikach YAML lub JSON, pozostawiając klucze struktury jawne. Ułatwia to inspekcję zmian (code review). SOPS integruje się z systemami KMS chmur publicznych (AWS, GCP, Azure) oraz kluczami PGP.",
+						"Dla dużych organizacji alternatywą jest wdrożenie zewnętrznych, dedykowanych systemów zarządzania sekretami, takich jak HashiCorp Vault, Keywhiz, AWS Secrets Manager czy Azure Key Vault.",
+						"Zewnętrzne systemy centralizują sekrety, oferują pełny audyt operacji i dynamiczną rotację kluczy, jednak drastycznie zwiększają ogólną złożoność architektoniczną i operacyjną całej infrastruktury IT."
+					]
+				}
+			],
+			"quiz": [
+				{
+					"question": "Czym charakteryzuje się kontener z technicznego punktu widzenia systemu operacyjnego Linux?",
+					"options": [
+						{
+							"text": "Reprezentuje całkowicie odizolowany proces istniejący we własnej przestrzeni nazw",
+							"isCorrect": true
+						},
+						{
+							"text": "Jest ciężką maszyną wirtualną z emulowanym fizycznym biosem płyty głównej",
+							"isCorrect": false
+						},
+						{
+							"text": "Domyślnie nie widzi procesów działających na hostu poza jego namespace",
+							"isCorrect": true
+						},
+						{
+							"text": "Współdzieli globalną, domyślną przestrzeń nazw ze wszystkimi procesami użytkowników",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jakie są zalecenia i dobre praktyki dotyczące uruchamiania procesów w pojedynczym kontenerze?",
+					"options": [
+						{
+							"text": "Kontener powinien realizować jedną dedykowaną czynność (zasada single responsibility)",
+							"isCorrect": true
+						},
+						{
+							"text": "Należy w nim uruchomić systemd, aby zarządzał wieloma usługami tła jednocześnie",
+							"isCorrect": false
+						},
+						{
+							"text": "Wydzielenie procesów do osobnych kontenerów umożliwia ich niezależne skalowanie",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób należy uruchamiać główny proces aplikacji w kontenerze zgodnie z metodologią Twelve-Factor?",
+					"options": [
+						{
+							"text": "Jako proces pierwszoplanowy (foreground), rezygnując z demonów tła",
+							"isCorrect": true
+						},
+						{
+							"text": "Wyłącznie wewnątrz spakowanego archiwum zip z hasłem roota",
+							"isCorrect": false
+						},
+						{
+							"text": "Zapewniając, że kod binarny i stan pamięci są bezpośrednio kontrolowane przez proces orkiestratora",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Do czego służy niskopoziomowe narzędzie runc w architekturze kontenerowej?",
+					"options": [
+						{
+							"text": "Jest narzędziem wiersza poleceń służącym do bezpośredniego tworzenia i uruchamiania kontenerów",
+							"isCorrect": true
+						},
+						{
+							"text": "Odpowiada za automatyczne replikowanie baz danych SQL w chmurze AWS",
+							"isCorrect": false
+						},
+						{
+							"text": "Działa w ścisłej zgodności z otwartą specyfikacją standardu OCI (Open Container Initiative)",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Co dzieje się z danymi zapisanymi lokalnie w kontenerze, jeśli nie zastosowano woluminu zewnętrznego?",
+					"options": [
+						{
+							"text": "Są trwale replikowane na dyskach wszystkich węzłów głównych klastra",
+							"isCorrect": false
+						},
+						{
+							"text": "Zostaną bezpowrotnie utracone, ponieważ domyślny warstwowy system plików kontenera jest efemeryczny",
+							"isCorrect": true
+						},
+						{
+							"text": "Wszelkie modyfikacje znikną w momencie awarii, restartu lub odtworzenia kontenera przez Kubernetes",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Jakie cechy i zachowania charakteryzują Woluminy (Volumes) w ekosystemie Kubernetes?",
+					"options": [
+						{
+							"text": "Reprezentują katalog z danymi, do którego dostęp uzyskują kontenery w podzie",
+							"isCorrect": true
+						},
+						{
+							"text": "Ich cykl życia jest całkowicie niezależny od cyklu życia poszczególnych kontenerów",
+							"isCorrect": true
+						},
+						{
+							"text": "Są współdzielone przez wszystkie kontenery uruchomione w obrębie tego samego poda",
+							"isCorrect": true
+						},
+						{
+							"text": "Automatycznie szyfrują algorytmem AES-256 każdy plik tekstowy bez wiedzy administratora",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Czym charakteryzuje się podstawowy wolumin typu emptyDir?",
+					"options": [
+						{
+							"text": "Jest tworzony jako pusty katalog w momencie przypisania poda do konkretnego węzła",
+							"isCorrect": true
+						},
+						{
+							"text": "Istnieje w systemie tak długo, jak długo pod działa na danej maszynie",
+							"isCorrect": true
+						},
+						{
+							"text": "Awaria i restart kontenera powoduje natychmiastowe usunięcie danych z emptyDir",
+							"isCorrect": false
+						},
+						{
+							"text": "Usunięcie poda z klastra skutkuje bezpowrotnym skasowaniem woluminu emptyDir",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Kiedy uzasadnione jest stosowanie woluminu typu hostPath w definicji poda?",
+					"options": [
+						{
+							"text": "Gdy chcemy podmontować plik lub katalog bezpośrednio z systemu plików węzła roboczego do kontenera",
+							"isCorrect": true
+						},
+						{
+							"text": "Jest to jedyny zalecany tryb dla przechowywania stanowych baz danych w chmurach publicznych",
+							"isCorrect": false
+						},
+						{
+							"text": "W przypadku narzędzi systemowych, które wymagają bezpośredniego wglądu w głąb maszyny hosta",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Dlaczego stosowanie woluminów sprzętowych (hostPath) utrudnia zarządzanie klastrem chmurowym?",
+					"options": [
+						{
+							"text": "Ponieważ wiążą one pod z konkretną maszyną, uniemożliwiając swobodną migrację na inny węzeł",
+							"isCorrect": true
+						},
+						{
+							"text": "Jeśli węzeł ulegnie awarii, Kubernetes nie będzie mógł odtworzyć poda z tymi samymi danymi na innej maszynie",
+							"isCorrect": true
+						},
+						{
+							"text": "Całkowicie blokują one działanie narzędzia wiersza poleceń kubectl version",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jaką funkcję pełnią odpowiednio zasoby PersistentVolume (PV) oraz PersistentVolumeClaim (PVC)?",
+					"options": [
+						{
+							"text": "PV reprezentuje rzeczywisty element pamięci masowej w klastrze, skonfigurowany przez administratora",
+							"isCorrect": true
+						},
+						{
+							"text": "PVC to żądanie zasobu masowego tworzone przez programistę o określonym rozmiarze i parametrach",
+							"isCorrect": true
+						},
+						{
+							"text": "PVC automatycznie kompiluje pliki kodu źródłowego do warstwy scratch",
+							"isCorrect": false
+						},
+						{
+							"text": "Pozwalają odseparować proces wnioskowania o pamięć dyskową od szczegółów technicznych infrastruktury",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Co oznaczają skróty RWO, ROM oraz RWM określające tryby dostępu (Access Modes) do woluminów trwałych?",
+					"options": [
+						{
+							"text": "ReadWriteOnce (RWO) – wolumin może być zamontowany jako do zapisu/odczytu przez tylko jeden węzeł",
+							"isCorrect": true
+						},
+						{
+							"text": "ReadOnlyMany (ROM) – wolumin może być zamontowany jako tylko do odczytu przez wiele węzłów",
+							"isCorrect": true
+						},
+						{
+							"text": "ReadWriteMany (RWM) – wolumin umożliwia jednoczesny zapis i odczyt z poziomu wielu węzłów",
+							"isCorrect": true
+						},
+						{
+							"text": "RWO oznacza, że wolumin można uruchomić wyłącznie raz w ciągu całego roku",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób mechanizm StorageClass optymalizuje zarządzanie pamięcią masową?",
+					"options": [
+						{
+							"text": "Eliminuje potrzebę ręcznego tworzenia obiektów PersistentVolume przez administratora",
+							"isCorrect": true
+						},
+						{
+							"text": "Umożliwia dynamiczne i automatyczne powoływanie dysków sieciowych u dostawcy chmury na żądanie PVC",
+							"isCorrect": true
+						},
+						{
+							"text": "Zmniejsza zużycie pamięci RAM przez proces kube-scheduler do zera",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jaki jest główny cel stosowania obiektów typu ConfigMap w aplikacjach chmurowych?",
+					"options": [
+						{
+							"text": "Pozwalają na rygorystyczne oddzielenie kodu źródłowego aplikacji od jej konfiguracji",
+							"isCorrect": true
+						},
+						{
+							"text": "Służą do bezpiecznego szyfrowania haseł i kluczy API za pomocą kluczy PGP",
+							"isCorrect": false
+						},
+						{
+							"text": "Umożliwiają przechowywanie danych jawnych w postaci par klucz-wartość",
+							"isCorrect": true
+						},
+						{
+							"text": "Pozwalają uruchamiać dokładnie ten sam obraz kontenera na różnych środowiskach (dev, prod)",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób aplikacja zamknięta w kontenerze może konsumować dane z ConfigMap?",
+					"options": [
+						{
+							"text": "Poprzez wstrzyknięcie wartości do zmiennych środowiskowych kontenera",
+							"isCorrect": true
+						},
+						{
+							"text": "Poprzez podmontowanie ConfigMap jako plików wewnątrz woluminu konfiguracyjnego",
+							"isCorrect": true
+						},
+						{
+							"text": "Wyłącznie poprzez bezpośrednie zapytania SQL wysyłane do bazy danych etcd klastra",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Co dzieje się w sytuacji, gdy wartości w ConfigMap zostaną zmodyfikowane w trakcie działania aplikacji?",
+					"options": [
+						{
+							"text": "Wartości wstrzyknięte jako zmienne środowiskowe NIE ulegną aktualizacji do czasu restartu kontenera",
+							"isCorrect": true
+						},
+						{
+							"text": "Konfiguracja zamontowana jako wolumin plikowy zostanie automatycznie zaktualizowana w kontenerze bez restartu",
+							"isCorrect": true
+						},
+						{
+							"text": "Cały klaster zostanie natychmiast zatrzymany ze względów bezpieczeństwa spójności danych",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Dlaczego zabrania się przechowywania haseł i kluczy API bezpośrednio w obiektach ConfigMap?",
+					"options": [
+						{
+							"text": "ConfigMap nie szyfruje danych i służy wyłącznie dla informacji jawnych",
+							"isCorrect": true
+						},
+						{
+							"text": "Dane te byłyby zbyt łatwo widoczne dla każdego użytkownika z podstawowym dostępem do API",
+							"isCorrect": true
+						},
+						{
+							"text": "ConfigMap automatycznie przesyła całą swoją zawartość do publicznego rejestru Docker Hub",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób Kubernetes domyślnie przechowuje oraz zabezpiecza wartości wewnątrz obiektów typu Secret?",
+					"options": [
+						{
+							"text": "Są one zapisywane w bazie danych etcd w postaci zakodowanej algorytmem Base64",
+							"isCorrect": true
+						},
+						{
+							"text": "Kodowanie Base64 nie jest formą szyfrowania i można je łatwo odwrócić",
+							"isCorrect": true
+						},
+						{
+							"text": "Dostęp do sekretów musi być restrykcyjnie kontrolowany za pomocą polityk uprawnień RBAC",
+							"isCorrect": true
+						},
+						{
+							"text": "Kubernetes domyślnie instaluje sprzętowy moduł HSM na każdym węźle roboczym",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Dlaczego wstrzykiwanie Secretu jako woluminu plikowego w pamięci RAM (tmpfs) jest bezpieczniejsze niż zmienne środowiskowe?",
+					"options": [
+						{
+							"text": "Zapobiega to fizycznemu zapisaniu poufnych danych na dyskach twardych węzłów roboczych",
+							"isCorrect": true
+						},
+						{
+							"text": "Zmienne środowiskowe mogą przypadkowo wyciec do logów systemowych w przypadku awarii aplikacji",
+							"isCorrect": true
+						},
+						{
+							"text": "Wolumin RAM drastycznie zwiększa zużycie procesora przez kontener",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jakie możliwości oferuje narzędzie SOPS (Secrets Operations) od Mozilli w kontekście zarządzania kodem konfiguracyjnym?",
+					"options": [
+						{
+							"text": "Umożliwia bezpieczne wypychanie plików konfiguracyjnych do systemu kontroli wersji Git",
+							"isCorrect": true
+						},
+						{
+							"text": "Zamiast całego pliku szyfruje wyłącznie poszczególne wartości tajne, pozostawiając klucze jawne",
+							"isCorrect": true
+						},
+						{
+							"text": "Obsługuje wiele zapleczy szyfrujących, w tym PGP, AWS KMS, GCP KMS oraz Azure Key Vault",
+							"isCorrect": true
+						},
+						{
+							"text": "Służy do automatycznego usuwania ukończonych zadań typu Kubernetes Job",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jakie są wady i zalety stosowania zaawansowanych, zewnętrznych systemów zarządzania sekretami (np. HashiCorp Vault, Azure Key Vault)?",
+					"options": [
+						{
+							"text": "Zapewniają bezpieczne przechowywanie wszystkich sekretów w jednym, dedykowanym, centralnym miejscu",
+							"isCorrect": true
+						},
+						{
+							"text": "Gwarantują pełną kontrolę dostępu, rotację kluczy oraz szczegółowy audyt operacji",
+							"isCorrect": true
+						},
+						{
+							"text": "Są całkowicie darmowe i zmniejszają złożoność operacyjną środowiska programistycznego do zera",
+							"isCorrect": false
+						},
+						{
+							"text": "Ich wdrożenie znacząco zwiększa ogólną złożoność infrastruktury IT",
+							"isCorrect": true
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 6,
+			"title": "Wykład 6: Budowanie Diagramów Helm, Strategie Wdrażania i Ciągłe Wdrażanie (CD)",
+			"sections": [
+				{
+					"title": "Architektura i budowanie diagramów Helm",
+					"content": [
+						"Zarządzanie surowymi plikami manifestu YAML bywa trudne w utrzymaniu i dystrybucji, dlatego Helm umożliwia odseparowanie definicji zasobów od specyficznych dla środowiska konfiguracji i zmiennych.",
+						"Każdy pakiet konfiguracyjny (diagram Helm) posiada standardową strukturę katalogów: plik 'Chart.yaml' (metadane i wersjonowanie), plik 'values.yaml' (domyślne wartości zmiennych) oraz podkatalog 'templates' zawierający manifesty (np. deployment.yaml, service.yaml).",
+						"Wzorzec szablonów pozwala na używanie instrukcji warunkowych, pętli oraz dynamiczne wstrzykiwanie zmiennych z pliku konfiguracyjnego przy użyciu składni podwójnych nawiasów klamrowych, np. '{{ .Values.container.name }}'.",
+						"Możliwe jest tworzenie dedykowanych plików konfiguracyjnych dla konkretnych środowisk logicznych (np. 'staging-values.yaml' oraz 'production-values.yaml'), co pozwala na elastyczne parametryzowanie zasobów tego samego diagramu.",
+						"Do weryfikacji poprawności składniowej i wyrenderowania ostatecznej postaci manifestów YAML bez ich faktycznego wdrażania do klastra służy polecenie 'helm template'."
+					]
+				},
+				{
+					"title": "Alternatywne narzędzia zarządzania manifestami",
+					"content": [
+						"Poza menedżerem Helm istnieją inne podejścia do parametryzacji środowisk: Kustomize (wbudowane natywnie w kubectl, oparte na nakładaniu warstw bez używania szablonów), ksonnet (oparte na języku Jsonnet) oraz Kapitan.",
+						"Narzędzie ksonnet (oraz biblioteka kubecfg) wprowadza obiektowe podejście do definicji infrastruktury, umożliwiając reużywalność komponentów i programistyczne generowanie manifestów chmurowych.",
+						"Kustomize bazuje na koncepcji deklarowania czystej bazy (base) oraz nakładania na nią specyficznych modyfikacji (overlays) dla poszczególnych środowisk, co eliminuje ryzyko błędów w składni szablonów."
+					]
+				},
+				{
+					"title": "Środowiska programistyczne i lokalny rozwój (Skaffold i Telepresence)",
+					"content": [
+						"Tradycyjny cykl deweloperski (edytowanie kodu, budowanie obrazu, wypychanie do rejestru, aktualizacja manifestu) jest powolny i nieefektywny w architekturze mikrousług.",
+						"Skaffold to narzędzie od Google, które automatyzuje lokalny rozwój: wykrywa zmiany w kodzie źródłowym na dysku komputera, automatycznie buduje obraz, optymalizuje warstwy, przesyła go do lokalnego klastra i strumieniuje logi.",
+						"Telepresence rozwiązuje problem debugowania sieciowego, tworząc dwukierunkowy tunel proxy między lokalną stacją roboczą programisty a wnętrzem klastra Kubernetes.",
+						"Dzięki Telepresence lokalnie uruchomiony proces aplikacji (np. w środowisku IDE) zachowuje się tak, jakby fizycznie działał wewnątrz klastra – ma natywny dostęp do zmiennych, ConfigMaps, sekretów oraz wewnętrznych nazw DNS innych usług."
+					]
+				},
+				{
+					"title": "Strategie wdrażania i zarządzanie ruchem sieciowym",
+					"content": [
+						"Wyróżnia się trzy podstawowe strategie aktualizacji aplikacji: Recreate (wyłączenie wszystkich starych podów przed uruchomieniem nowych – generuje przestój), Rolling Update (stopniowa, bezprzerwowa wymiana podów) oraz zaawansowane wdrożenia kanarkowe.",
+						"Podstawowy mechanizm Rolling Update sterowany jest dwoma parametrami: 'maxSurge' (ile dodatkowych podów ponad stan pożądany można chwilowo utworzyć) oraz 'maxUnavailable' (ile podów może być niedostępnych podczas aktualizacji).",
+						"Wdrożenie kanarkowe (Canary) polega na skierowaniu niewielkiego odsetka realnego ruchu użytkowników (np. 5%) na nową wersję aplikacji w celu monitorowania błędów przed pełną migracją.",
+						"Wdrożenie niebiesko-zielone (Blue-Green) utrzymuje równolegle dwa identyczne, pełnowymiarowe środowiska (stare - Blue, nowe - Green), a przełączenie całego ruchu następuje natychmiastowo na poziomie konfiguracji routera lub serwera proxy."
+					]
+				},
+				{
+					"title": "Zarządzanie routingiem i architektura Service Mesh",
+					"content": [
+						"Realizacja zaawansowanego routingu (np. dzielenie ruchu według wag procentowych czy nagłówków HTTP) na poziomie standardowych usług Kubernetes Service jest niemożliwa.",
+						"Do precyzyjnego zarządzania ruchem sieciowym wykorzystuje się dedykowane kontrolery Ingress (np. Traefik, Kong, NGINX Ingress) lub zaawansowane siatki usług (Service Mesh).",
+						"Siatka usług Istio wprowadza architekturę opartą na kontenerach typu sidecar (proxy Envoy wstrzykiwane do każdego poda), przejmując całkowitą kontrolę nad komunikacją międzyusługową, szyfrowaniem mTLS oraz telemetrią."
+					]
+				},
+				{
+					"title": "Praktyki GitOps i Ciągłe Wdrażanie (CD)",
+					"content": [
+						"Metodologia GitOps definiuje system kontroli wersji Git jako jedyne, nadrzędne źródło prawdy o pożądanym stanie całej infrastruktury i konfiguracji klastra.",
+						"W tradycyjnym podejściu (Push) zewnętrzny system (np. GitLab CI, Jenkins) posiada szerokie uprawnienia administracyjne i bezpośrednio wymusza zmiany w klastrze za pomocą kubectl.",
+						"Model deklaratywny (Pull) odwraca tę relację – wewnątrz klastra działa agent CD, który stale monitoruje stan repozytorium Git i automatycznie synchronizuje stan faktyczny klastra, co eliminuje potrzebę udostępniania tokenów na zewnątrz.",
+						"Narzędzie Gitkube to uproszczone, samodzielnie hostowane rozwiązanie wewnątrz klastra, które monitoruje dedykowane repozytorium Git i automatycznie przebudowuje oraz wdraża kontener po wykonaniu komendy 'git push'.",
+						"Zaawansowane kontrolery CD, takie jak Flux oraz Keel, potrafią monitorować nie tylko repozytorium kodu, ale również zdalny rejestr kontenerów (np. Docker Hub), automatycznie inicjując aktualizację klastra po wykryciu nowego tagu obrazu."
+					]
+				}
+			],
+			"quiz": [
+				{
+					"question": "Z jakich podstawowych komponentów składa się standardowa struktura diagramu Helm?",
+					"options": [
+						{
+							"text": "Z pliku Chart.yaml zawierającego metadane, opis oraz wersję diagramu",
+							"isCorrect": true
+						},
+						{
+							"text": "Z pliku values.yaml, który definiuje domyślne wartości dla używanych szablonów",
+							"isCorrect": true
+						},
+						{
+							"text": "Z podkatalogu templates, w którym umieszcza się parametryzowane pliki manifestów",
+							"isCorrect": true
+						},
+						{
+							"text": "Z kompilatora runc odpowiedzialnego za bezpośrednie tworzenie warstw scratch",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób realizowane jest dynamiczne wstrzykiwanie zmiennych do manifestów YAML w narzędziu Helm?",
+					"options": [
+						{
+							"text": "Poprzez automatyczne modyfikowanie kodu źródłowego bazy etcd",
+							"isCorrect": false
+						},
+						{
+							"text": "Przy użyciu dedykowanego silnika szablonów i składni podwójnych nawiasów klamrowych",
+							"isCorrect": true
+						},
+						{
+							"text": "Wartości są pobierane bezpośrednio ze struktur zdefiniowanych w plikach wartości values",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Czym charakteryzuje się podejście do zarządzania konfiguracją oferowane przez alternatywne narzędzie Kustomize?",
+					"options": [
+						{
+							"text": "Nie wykorzystuje mechanizmu szablonów tekstowych ani klamer",
+							"isCorrect": true
+						},
+						{
+							"text": "Bazodzi się na deklarowaniu czystej bazy oraz nakładaniu na nią warstw modyfikacji (overlays)",
+							"isCorrect": true
+						},
+						{
+							"text": "Jest natywnie zintegrowane i dostępne bezpośrednio z poziomu narzędzia kubectl",
+							"isCorrect": true
+						},
+						{
+							"text": "Wymusza instalację dodatkowego serwera Tiller wewnątrz przestrzeni kube-system",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jaki problem rozwiązuje narzędzie Skaffold w kontekście lokalnego cyklu rozwoju oprogramowania?",
+					"options": [
+						{
+							"text": "Automatycznie wykrywa zmiany w kodzie na dysku dewelopera, buduje obraz i aktualizuje klaster",
+							"isCorrect": true
+						},
+						{
+							"text": "Strumieniuje logi z uruchomionych kontenerów bezpośrednio do terminala lokalnego",
+							"isCorrect": true
+						},
+						{
+							"text": "Służy do długoterminowego rezerwowania maszyn wirtualnych u dostawców chmury",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób działa narzędzie Telepresence podczas debugowania aplikacji chmurowych?",
+					"options": [
+						{
+							"text": "Fizycznie przenosi cały klaster Kubernetes na laptopa programisty",
+							"isCorrect": false
+						},
+						{
+							"text": "Tworzy dwukierunkowy tunel sieciowy proxy między stacją roboczą a wnętrzem klastra",
+							"isCorrect": true
+						},
+						{
+							"text": "Umożliwia lokalnemu procesowi deweloperskiemu natywne odpytywanie wewnętrznych usług i nazw DNS klastra",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Które ze stwierdzeń poprawnie opisuą charakterystykę strategii wdrażania typu Recreate?",
+					"options": [
+						{
+							"text": "Powoduje całkowite wyłączenie wszystkich starych podów przed uruchomieniem nowej wersji",
+							"isCorrect": true
+						},
+						{
+							"text": "Gwarantuje brak jakiegokolwiek przestoju (zero-downtime) dla użytkowników końcowych",
+							"isCorrect": false
+						},
+						{
+							"text": "Generuje okno czasowe, w którym aplikacja pozostaje tymczasowo niedostępna",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Za co odpowiadają parametry maxSurge oraz maxUnavailable w konfiguracji Rolling Update?",
+					"options": [
+						{
+							"text": "MaxSurge określa maksymalną liczbę podów, które można chwilowo utworzyć ponad stan pożądany",
+							"isCorrect": true
+						},
+						{
+							"text": "MaxUnavailable definiuje maksymalną dopuszczalną liczbę niedostępnych podów w trakcie aktualizacji",
+							"isCorrect": true
+						},
+						{
+							"text": "Oba parametry służą wyłącznie do limitowania twardego dysku PersistentVolume",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Na czym polega fundamentalna idea realizowania wdrożeń typu kanarkowego (Canary Deployments)?",
+					"options": [
+						{
+							"text": "Na natychmiastowym przełączeniu 100% ruchu na nowe środowisko w szafie rack",
+							"isCorrect": false
+						},
+						{
+							"text": "Na stopniowym kierowaniu niewielkiej części realnego ruchu (np. 5%) na zaktualizowaną wersję aplikacji",
+							"isCorrect": true
+						},
+						{
+							"text": "Umożliwia bezpieczne testowanie i monitorowanie stabilności nowej wersji na produkcji",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób realizowana jest strategia wdrożenia typu niebiesko-zielonego (Blue-Green)?",
+					"options": [
+						{
+							"text": "Utrzymuje się dwa identyczne, niezależne środowiska aplikacyjne (stare i nowe) jednocześnie",
+							"isCorrect": true
+						},
+						{
+							"text": "Przełączenie ruchu użytkowników następuje natychmiastowo na poziomie warstwy routingu lub proxy",
+							"isCorrect": true
+						},
+						{
+							"text": "Nowa wersja jest wdrażana wyłącznie na maszynach posiadających fizyczne moduły GPU",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Dlaczego standardowe zasoby typu Kubernetes Service są niewystarczające do zaawansowanego kierowania ruchem?",
+					"options": [
+						{
+							"text": "Nie posiadają wbudowanych mechanizmów podziału ruchu na podstawie nagłówków HTTP czy ciasteczek",
+							"isCorrect": true
+						},
+						{
+							"text": "Nie umożliwiają precyzyjnego, procentowego ważenia ruchu sieciowego pomiędzy wersjami",
+							"isCorrect": true
+						},
+						{
+							"text": "Całkowicie blokują działanie poleceń z serii kubectl logs -f",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jakie komponenty infrastruktury IT pozwalają na pełną kontrolę i separację ruchu sieciowego?",
+					"options": [
+						{
+							"text": "Wyspecjalizowane kontrolery Ingress (np. Traefik, NGINX Ingress)",
+							"isCorrect": true
+						},
+						{
+							"text": "Zaawansowane architektury typu siatka usług (Service Mesh)",
+							"isCorrect": true
+						},
+						{
+							"text": "Lokalne skrypty instalacyjne oparte na poleceniu docker login",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Czym cechuje się siatka usług Istio w kontekście zarządzania mikrousługami?",
+					"options": [
+						{
+							"text": "Wykorzystuje kontenery typu sidecar (proxy Envoy) wstrzykiwane bezpośrednio do każdego poda",
+							"isCorrect": true
+						},
+						{
+							"text": "Przejmuje całkowitą kontrolę nad routingiem komunikacji międzyusługowej",
+							"isCorrect": true
+						},
+						{
+							"text": "Zapewnia automatyczne szyfrowanie ruchu przy użyciu mechanizmu mTLS oraz zbiera telemetrię",
+							"isCorrect": true
+						},
+						{
+							"text": "Służy do automatycznego usuwania starych gałęzi w systemie kontroli wersji Git",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jaka jest główna zasada leżąca u podstaw paradygmatu GitOps?",
+					"options": [
+						{
+							"text": "Repozytorium Git stanowi jedyne i nadrzędne źródło prawdy o stanie konfiguracji klastra",
+							"isCorrect": true
+						},
+						{
+							"text": "Wszelkie zmiany w systemie muszą być wprowadzane wyłącznie poprzez operacje na repozytorium (np. Pull Request)",
+							"isCorrect": true
+						},
+						{
+							"text": "Zabrania się używania systemu kontroli wersji do przechowywania plików YAML",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Na czym polega różnica pomiędzy modelem Push a modelem Pull w potokach ciągłego wdrażania (CD)?",
+					"options": [
+						{
+							"text": "W modelu Push zewnętrzny system posiada uprawnienia i bezpośrednio wymusza zmiany za pomocą kubectl",
+							"isCorrect": true
+						},
+						{
+							"text": "W modelu Pull wewnętrzny agent działający w klastrze sam monitoruje Git i synchronizuje stan",
+							"isCorrect": true
+						},
+						{
+							"text": "Model Pull eliminuje potrzebę udostępniania wrażliwych tokenów i kluczy dostępowych na zewnątrz",
+							"isCorrect": true
+						},
+						{
+							"text": "Model Push działa wyłącznie na serwerach typu mainframe bez użycia kontenerów",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób działa autonomiczne narzędzie Gitkube zainstalowane w klastrze?",
+					"options": [
+						{
+							"text": "Monitoruje repozytorium Git i automatycznie kompiluje oraz wdraża kontener po wykonaniu push",
+							"isCorrect": true
+						},
+						{
+							"text": "Jest proste, lekkie i wysoce przenośne w konfiguracji",
+							"isCorrect": true
+						},
+						{
+							"text": "Służy do automatycznego generowania dokumentacji w formacie mebibajtów",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jakie unikalne możliwości oferują zaawansowane kontrolery CD takie jak Flux oraz Keel?",
+					"options": [
+						{
+							"text": "Potrafią stale monitorować zewnętrzny rejestr kontenerów pod kątem pojawienia się nowych obrazów",
+							"isCorrect": true
+						},
+						{
+							"text": "Automatycznie aktualizują i wdrażają nową wersję w klastrze po wykryciu nowego tagu w rejestrze",
+							"isCorrect": true
+						},
+						{
+							"text": "Wymagają całkowitego usunięcia narzędzia wiersza poleceń helm z systemu",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Które pliki są standardowo modyfikowane, gdy chcemy zmienić konfigurację dla środowiska produkcyjnego w Helmie?",
+					"options": [
+						{
+							"text": "Dedykowany plik wartości, na przykład production-values.yaml",
+							"isCorrect": true
+						},
+						{
+							"text": "Główny plik binarny środowiska wykonawczego runc",
+							"isCorrect": false
+						},
+						{
+							"text": "Plik values.yaml zawierający domyślne parametry struktury",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Jakie są korzyści z odseparowania surowych manifestów YAML od konkretnych zmiennych środowiskowych?",
+					"options": [
+						{
+							"text": "Ułatwia to dystrybucję oprogramowania oraz ponowne wykorzystanie tych samych definicji zasobów",
+							"isCorrect": true
+						},
+						{
+							"text": "Pozwala różnym użytkownikom na dostosowanie parametrów aplikacji pod własne potrzeby",
+							"isCorrect": true
+						},
+						{
+							"text": "Wymusza automatyczne szyfrowanie sekretów algorytmem Base64 bezpośrednio w kodzie źródłowym",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Co oznacza, że narzędzie CD potrafi reagować na mechanizmy typu webhook (haki sieciowe)?",
+					"options": [
+						{
+							"text": "Zostaje natychmiast powiadomione przez zewnętrzny system o wystąpieniu zdarzenia (np. push nowego obrazu)",
+							"isCorrect": true
+						},
+						{
+							"text": "Pozwala na natychmiastowe podjęcie akcji wdrażania bez czekania na cykliczne odpytywanie (polling)",
+							"isCorrect": true
+						},
+						{
+							"text": "Służy do fizycznego blokowania portów sieciowych na maszynie hosta",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Które z poniższych stwierdzeń prawidłowo podsumowują ekosystem wdrażania aplikacji chmurowych?",
+					"options": [
+						{
+							"text": "GitOps łączy zarządzanie infrastrukturą z procesem przeglądu kodu typu pull request",
+							"isCorrect": true
+						},
+						{
+							"text": "Narzędzia CD takie jak Flux automatyzują cykl życia wersji kontenerowych w Kubernetes",
+							"isCorrect": true
+						},
+						{
+							"text": "Siatki usług typu Service Mesh rozwiązują problemy bezpiecznej komunikacji mTLS pomiędzy pody",
+							"isCorrect": true
+						},
+						{
+							"text": "Współczesna architektura całkowicie wyklucza możliwość stosowania plików konfiguracyjnych YAML",
+							"isCorrect": false
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 7,
+			"title": "Wykład 7: Monitorowanie, Logi, Metryki i Obserwowalność Systemów Rozproszonych",
+			"sections": [
+				{
+					"title": "Wprowadzenie do automatycznego monitorowania",
+					"content": [
+						"W kontekście praktyk DevOps monitorowanie oznacza proces automatycznego, programowego sprawdzania dostępności oraz zachowania usług i aplikacji sieciowych według ściśle zdefiniowanego harmonogramu.",
+						"Nadrzędnym celem automatyzacji monitorowania jest natychmiastowe wykrywanie anomalii i uruchamianie powiadomień (alertów), które informują inżynierów utrzymania o wystąpieniu sytuacji awaryjnej.",
+						"Tradycyjne podejście opiera się na tzw. monitorowaniu czarnej skrzynki (Black-box monitoring), które koncentruje się wyłącznie na badaniu zewnętrznych przejawów działania systemu (np. czy serwer odpowiada na ping), bez wnikania w mechanizmy wewnętrzne.",
+						"Współcześnie monitorowanie czarnej skrzynki realizowane jest przez wyspecjalizowane usługi zewnętrzne badające infrastrukturę z różnych lokalizacji geograficznych, co pozwala odtworzyć realną perspektywę użytkownika końcowego."
+					]
+				},
+				{
+					"title": "Przejście od monitorowania do Obserwowalności (Observability)",
+					"content": [
+						"Samo monitorowanie czarnej skrzynki jest niewystarczające dla złożonych mikroserwisów chmurowych, ponieważ informuje o fakcie wystąpienia awarii, ale nie pozwala zidentyfikować jej źródła.",
+						"Konieczna stała się implementacja monitorowania białej skrzynki (White-box monitoring), polegająca na zbieraniu i analizie danych telemetrycznych generowanych bezpośrednio przez wnętrze uruchomionego kodu aplikacji.",
+						"Paradygmat Obserwowalności (Observability) definiuje zdolność do precyzyjnego wnioskowania o wewnętrznym stanie systemu rozproszonego wyłącznie na podstawie analizy jego danych wyjściowych (telemetrii).",
+						"Wyróżnia się trzy fundamentalne filary pełnej obserwowalności systemów informatycznych, określane w inżynierii skrótem MLES: Metryki (Metrics), Logi (Logs) oraz Śledzenie (Tracing)."
+					]
+				},
+				{
+					"title": "Pierwszy filar: Logi (Zdarzenia dyskretne)",
+					"content": [
+						"Log reprezentuje niezmienny, ustrukturyzowany lub nieustrukturyzowany zapis tekstowy dokumentujący konkretne zdarzenie dyskretne, które zaistniało w systemie w określonym punkcie czasowym.",
+						"Logi są kluczowym narzędziem na etapie szczegółowego debugowania i analizy post-mortem, ponieważ zawierają pełny kontekst błędu (np. zrzut stosu pamięci, parametry błędnego zapytania SQL).",
+						"Poważną wadą logów jest wysoki koszt operacyjny: generowanie, przesyłanie przez sieć, indeksowanie i przechowywanie petabajtów tekstu wymaga potężnych zasobów dyskowych i compute.",
+						"W systemach o skrajnie wysokim natężeniu ruchu (high-throughput) nadmierne logowanie operacji potrafi drastycznie obniżyć wydajność samej aplikacji chmurowej i zapchać pasmo sieciowe."
+					]
+				},
+				{
+					"title": "Drugi filar: Metryki (Dane zagregowane)",
+					"content": [
+						"Metryka to liczbowa reprezentacja danych telemetrycznych mierzonych i agregowanych w regularnych odstępach czasu (interwałach).",
+						"W przeciwieństwie do logów, koszt utrzymania metryk jest stały i całkowicie niezależny od wolumenu ruchu systemowego; system zlicza zdarzenia w pamięci RAM i wysyła jedynie zagregowaną liczbę (np. co 10 sekund).",
+						"Metryki idealnie nadają się do budowy pulpitów menedżerskich (dashboards), śledzenia trendów wydajnościowych w czasie oraz automatycznego wyzwalania reguł alertowych.",
+						"Wyróżnia się cztery podstawowe rodzaje metryk: Liczniki (Counters – wartości stale rosnące, np. całkowita liczba żądań), Wskaźniki (Gauges – wartości zmienne w obie strony, np. aktualne zużycie pamięci RAM), Histogramy oraz Podsumowania."
+					]
+				},
+				{
+					"title": "Trzeci filar: Rozproszone Śledzenie (Distributed Tracing)",
+					"content": [
+						"Śledzenie (Tracing) reprezentuje mapę podróży pojedynczego żądania użytkownika przez skomplikowany labirynt dziesiątek niezależnych mikroserwisów chmurowych.",
+						"Pojedyncze wykonanie operacji w systemie rozproszonym nazywane jest śladem (Trace), z kolei mniejsze jednostki pracy wewnątrz poszczególnych usług to odcinki (Spans).",
+						"Śledzenie rozproszone wymaga mechanizmu propagacji kontekstu: usługa brzegowa generuje unikalny identyfikator 'Trace ID', który musi być jawnie wstrzykiwany do nagłówków (np. HTTP, gRPC) każdego kolejnego wywołania sieciowego.",
+						"Tracing pozwala bezbłędnie identyfikować wąskie gardła wydajnościowe (bottlenecks), pokazując dokładny czas procesowy zużyty przez każdy mikroserwis w łańcuchu wywołań."
+					]
+				},
+				{
+					"title": "Praktyczne wdrażanie strategii alertowych i narzędzia",
+					"content": [
+						"Sondy kondycji w orkiestratorze (Liveness/Readiness) to proste mechanizmy wewnętrznej kontroli stanu czarnej skrzynki, weryfikujące np. poprawność kodu odpowiedzi HTTP (np. status 200).",
+						"Konfiguracja alertów produkcyjnych musi być przemyślana; nadmiar fałszywych powiadomień o niskim priorytecie prowadzi do groźnego zjawiska zmęczenia alertami (alert fatigue) i ignorowania krytycznych awarii przez inżynierów.",
+						"Współczesny ekosystem narzędziowy opiera się na wiodących technologiach: Prometheus (baza danych Time-Series ściągająca metryki w modelu Pull), Grafana (zaawansowana wizualizacja i wykresy) oraz komercyjne platformy APM (np. New Relic) oferujące kompleksową analitykę błędów i wskaźniki Apdex oceniające satysfakcję użytkowników."
+					]
+				}
+			],
+			"quiz": [
+				{
+					"question": "Czym różni się podejście monitorowania typu czarnej skrzynki (Black-box) od monitorowania białej skrzynki (White-box)?",
+					"options": [
+						{
+							"text": "Monitorowanie czarnej skrzynki ocenia system wyłącznie z zewnątrz, sprawdzając jego ogólną dostępność sieciową",
+							"isCorrect": true
+						},
+						{
+							"text": "Monitorowanie białej skrzynki opiera się na telemetrii generowanej bezpośrednio przez wnętrze uruchomionego kodu",
+							"isCorrect": true
+						},
+						{
+							"text": "Monitorowanie czarnej skrzynki wymaga pełnego dostępu do bazy danych etcd oraz logów aplikacji",
+							"isCorrect": false
+						},
+						{
+							"text": "Monitorowanie białej skrzynki bada system wyłącznie przy użyciu zewnętrznych komend ping i testów DNS",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jaki jest główny cel stosowania automatycznych systemów monitorowania w architekturach chmurowych?",
+					"options": [
+						{
+							"text": "Automatyczne i cykliczne sprawdzanie zachowania aplikacji według zdefiniowanego harmonogramu",
+							"isCorrect": true
+						},
+						{
+							"text": "Natychmiastowe powiadamianie inżynierów operacyjnych o wykrytych anomaliach lub awariach",
+							"isCorrect": true
+						},
+						{
+							"text": "Fizyczne naprawianie uszkodzonych podzespołów mechanicznych w serwerowni bez udziału człowieka",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jak definiowana jest koncepcja Obserwowalności (Observability) w kontekście systemów rozproszonych?",
+					"options": [
+						{
+							"text": "Jest to zdolność do określenia wewnętrznego stanu systemu na podstawie analizy jego danych wyjściowych (telemetrii)",
+							"isCorrect": true
+						},
+						{
+							"text": "Jest to synonim tradycyjnego testowania czarnej skrzynki za pomocą zewnętrznych skryptów",
+							"isCorrect": false
+						},
+						{
+							"text": "Wymaga zbierania i korelowania zróżnicowanych typów informacji pochodzących z wnętrza infrastruktury",
+							"isCorrect": true
+						}
+					]
+				},
+				{
+					"question": "Które z wymienionych pojęć stanowią trzy kluczowe filary pełnej obserwowalności systemów (MLES)?",
+					"options": [
+						{
+							"text": "Metryki (Metrics)",
+							"isCorrect": true
+						},
+						{
+							"text": "Logi (Logs)",
+							"isCorrect": true
+						},
+						{
+							"text": "Śledzenie rozproszone (Tracing)",
+							"isCorrect": true
+						},
+						{
+							"text": "Skanowanie kontenerów scratch",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Czym z definicji jest log i kiedy jego użycie jest najbardziej uzasadnione?",
+					"options": [
+						{
+							"text": "To niezmienny, dyskretny zapis tekstowy dokumentujący konkretne zdarzenie w określonym czasie",
+							"isCorrect": true
+						},
+						{
+							"text": "Jest kluczowym narzędziem podczas szczegółowej analizy błędów i debugowania post-mortem",
+							"isCorrect": true
+						},
+						{
+							"text": "Służy do przechowywania zagregowanych w czasie wartości liczbowych zużycia pamięci RAM",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jakie są główne wady oraz ograniczenia operacyjne związane z nadmiernym generowaniem logów?",
+					"options": [
+						{
+							"text": "Wymagają potężnych i kosztownych zasobów pamięci masowej do ich indeksowania i przechowywania",
+							"isCorrect": true
+						},
+						{
+							"text": "Mogą drastycznie obniżyć wydajność aplikacji w systemach o wysokim natężeniu ruchu",
+							"isCorrect": true
+						},
+						{
+							"text": "Logi automatycznie kasują pliki manifestów YAML z repozytorium Git po upływie doby",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Czym charakteryzują się metryki jako jeden z filarów obserwowalności infrastruktury IT?",
+					"options": [
+						{
+							"text": "Są liczbową reprezentacją danych mierzonych i agregowanych w regularnych odstępach czasu",
+							"isCorrect": true
+						},
+						{
+							"text": "Koszt ich utrzymania i przesyłania jest stały i niezależny od wielkości ruchu sieciowego",
+							"isCorrect": true
+						},
+						{
+							"text": "Idealnie nadają się do tworzenia pulpitów nawigacyjnych (dashboards) i automatycznego alertowania",
+							"isCorrect": true
+						},
+						{
+							"text": "Przechowują kompletny zrzut stosu pamięci dla każdego indywidualnego błędu użytkownika",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Które z poniższych typów danych stanowią podstawowe rodzaje metryk telemetrycznych?",
+					"options": [
+						{
+							"text": "Liczniki (Counters) – stale rosnące wartości zliczające zdarzenia",
+							"isCorrect": true
+						},
+						{
+							"text": "Wskaźniki (Gauges) – wartości liczbowe mogące dynamicznie rosnąć i maleć",
+							"isCorrect": true
+						},
+						{
+							"text": "Histogramy oraz Podsumowania (Summaries)",
+							"isCorrect": true
+						},
+						{
+							"text": "Pliki wykonywalne binarnego środowiska uruchomieniowego runc",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jaki problem architektoniczny rozwiązuje implementacja rozproszonego śledzenia (Distributed Tracing)?",
+					"options": [
+						{
+							"text": "Pozwala śledzić i mapować drogę pojedynczego żądania przechodzącego przez wiele mikroserwisów",
+							"isCorrect": true
+						},
+						{
+							"text": "Umożliwia precyzyjną identyfikację wąskich gardeł i opóźnień w łańcuchu wywołań",
+							"isCorrect": true
+						},
+						{
+							"text": "Służy do automatycznego wdrażania poprawek bezpieczeństwa bezpośrednio na serwerach fizycznych",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Co oznaczają pojęcia śladu (Trace) oraz odcinka (Span) w technologii śledzenia zgłoszeń?",
+					"options": [
+						{
+							"text": "Ślad (Trace) reprezentuje całokształt realizacji jednego żądania w systemie rozproszonym",
+							"isCorrect": true
+						},
+						{
+							"text": "Ocinek (Span) reprezentuje pojedynczą, mniejszą jednostkę pracy wewnątrz konkretnej usługi",
+							"isCorrect": true
+						},
+						{
+							"text": "Span to unikalny adres IP przypisany do węzła głównego Control Plane",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Na czym polega mechanizm propagacji kontekstu (Context Propagation) w rozproszonym śledzeniu?",
+					"options": [
+						{
+							"text": "Wymaga wygenerowania unikalnego Trace ID przez pierwszą usługę obsługującą żądanie",
+							"isCorrect": true
+						},
+						{
+							"text": "Identyfikator Trace ID musi być przekazywany w nagłówkach każdego kolejnego wywołania sieciowego",
+							"isCorrect": true
+						},
+						{
+							"text": "Polega na automatycznym restartowaniu kontenerów sidecar proxy Envoy",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób podstawowe sondy kondycji (Liveness/Readiness) realizują kontrolę typu czarnej skrzynki?",
+					"options": [
+						{
+							"text": "Odpytują aplikację pod kątem prostych wskaźników, np. kodu statusu odpowiedzi HTTP 200",
+							"isCorrect": true
+						},
+						{
+							"text": "Weryfikują wyłącznie zewnętrzne, jawne zachowanie kontenera bez analizy jego głębokiej telemetrii",
+							"isCorrect": true
+						},
+						{
+							"text": "Sprawdzają poprawność konfiguracji reguł języka reguł DSL narzędzia Copper",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Czym skutkuje niewłaściwa konfiguracja i nadmierna częstotliwość wysyłania powiadomień o niskim priorytecie?",
+					"options": [
+						{
+							"text": "Prowadzi do zjawiska zmęczenia alertami (alert fatigue) wśród inżynierów operacyjnych",
+							"isCorrect": true
+						},
+						{
+							"text": "Skutkuje ignorowaniem lub przeoczeniem krytycznych alertów o rzeczywistych awariach systemu",
+							"isCorrect": true
+						},
+						{
+							"text": "Powoduje automatyczne zablokowanie dostępu do klastra przez polecenie kubectl config",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Które z wymienionych narzędzi i usług są powszechnie stosowane do zbierania, przechowywania oraz wizualizacji metryk?",
+					"options": [
+						{
+							"text": "Prometheus – baza danych typu Time-Series zbierająca dane w modelu Pull",
+							"isCorrect": true
+						},
+						{
+							"text": "Grafana – zaawansowana platforma służąca do budowania wykresów i pulpitów nawigacyjnych",
+							"isCorrect": true
+						},
+						{
+							"text": "Komercyjne systemy APM (np. New Relic) zapewniające kompleksową analitykę wydajności",
+							"isCorrect": true
+						},
+						{
+							"text": "Statyczne narzędzie walidacyjne Kubeval",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Do czego służy wskaźnik satysfakcji użytkowników Apdex (Application Performance Index)?",
+					"options": [
+						{
+							"text": "Pozwala przekształcić pomiary czasu reakcji aplikacji w spójny wskaźnik oceny jakości usług",
+							"isCorrect": true
+						},
+						{
+							"text": "Dzieli próbki wydajności na strefy w zależności od progu czasowego: zadowoleni, tolerujący, sfrustrowani",
+							"isCorrect": true
+						},
+						{
+							"text": "Służy do szacowania kosztów zakupu instancji zarezerwowanych spot w chmurze",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Które z podanych stwierdzeń dotyczących monitorowania systemów w chmurze są prawdziwe?",
+					"options": [
+						{
+							"text": "W systemach rozproszonych monitorowanie i obserwowalność uzupełniają się wzajemnie",
+							"isCorrect": true
+						},
+						{
+							"text": "Agregacja metryk pozwala na efektywne wykrywanie długoterminowych trendów zużycia zasobów",
+							"isCorrect": true
+						},
+						{
+							"text": "Sondy żywotności i gotowości chronią użytkowników przed kierowaniem ruchu do niedziałających podów",
+							"isCorrect": true
+						},
+						{
+							"text": "Logowanie powinno być całkowicie wyłączone na wszystkich środowiskach chmurowych",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "W jaki sposób można minimalizować narzut sieciowy i wydajnościowy filaru śledzenia rozproszonego?",
+					"options": [
+						{
+							"text": "Poprzez stosowanie próbkowania (sampling) – rejestrowanie tylko określonego procentu wszystkich żądań",
+							"isCorrect": true
+						},
+						{
+							"text": "Wyłączając przekazywanie Trace ID dla żądań, które zakończyły się sukcesem",
+							"isCorrect": true
+						},
+						{
+							"text": "Przechowując wszystkie ślady w plikach tekstowych na efemerycznym systemie kontenera",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Jaka cecha bazy danych Prometheus decyduje o sposobie integracji i pobierania metryk z aplikacji?",
+					"options": [
+						{
+							"text": "Działa w modelu Pull – to serwer Prometheus cyklicznie odpytuje wskazane punkty końcowe (endpoints)",
+							"isCorrect": true
+						},
+						{
+							"text": "Aplikacje muszą eksponować swoje metryki w odpowiednim formacie tekstowym pod dedykowanym adresem",
+							"isCorrect": true
+						},
+						{
+							"text": "Wymaga ciągłego, aktywnego wpychania (Push) danych przez aplikację bezpośrednio do bazy etcd",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Z jakich powodów sama informacja o dostępności sieciowej serwera (ping) nie gwarantuje poprawnego działania usługi rozproszonej?",
+					"options": [
+						{
+							"text": "Aplikacja może odpowiadać na ping, ale wewnętrznie zwracać błędy HTTP 500 z powodu awarii bazy danych",
+							"isCorrect": true
+						},
+						{
+							"text": "Czas odpowiedzi jednego z wewnętrznych mikroserwisów może drastycznie przekraczać limity timeout",
+							"isCorrect": true
+						},
+						{
+							"text": "Ping weryfikuje wyłącznie warstwę sieciową infrastruktury, ignorując stan aplikacji",
+							"isCorrect": true
+						},
+						{
+							"text": "Mechanizm ten automatycznie włącza automatyczne skalowanie klastra za pomocą HPA",
+							"isCorrect": false
+						}
+					]
+				},
+				{
+					"question": "Które z poniższych działań stanowią najlepsze praktyki budowy systemów obserwowalnych w DevOps?",
+					"options": [
+						{
+							"text": "Korelowanie logów z identyfikatorami Trace ID w celu szybkiej nawigacji od błędu do pełnej mapy żądania",
+							"isCorrect": true
+						},
+						{
+							"text": "Definiowanie alertów w oparciu o symptomy dotykające użytkownika, a nie surowe metryki infrastruktury",
+							"isCorrect": true
+						},
+						{
+							"text": "Projektowanie pulpitów nawigacyjnych w sposób czytelny, z wyodrębnieniem najważniejszych wskaźników zdrowia aplikacji",
+							"isCorrect": true
+						},
+						{
+							"text": "Ręczne przeglądanie milionów linii nieustrukturyzowanych logów tekstowych w edytorze w trakcie awarii",
+							"isCorrect": false
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="pl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>Notatki i Quizy - Rozproszone Systemy</title>
+		<style>
+			:root {
+				--bg-color: #f4f7f6;
+				--text-color: #333;
+				--primary: #0056b3;
+				--secondary: #fff;
+				--border: #ccc;
+				--correct-bg: #d4edda;
+				--correct-border: #c3e6cb;
+				--wrong-bg: #f8d7da;
+				--wrong-border: #f5c6cb;
+			}
+
+			body {
+				font-family:
+					system-ui,
+					-apple-system,
+					sans-serif;
+				margin: 0;
+				padding: 0;
+				background-color: var(--bg-color);
+				color: var(--text-color);
+				line-height: 1.6;
+			}
+
+			nav {
+				background-color: var(--primary);
+				color: var(--secondary);
+				padding: 1rem;
+				display: flex;
+				overflow-x: auto;
+				gap: 10px;
+			}
+
+			nav button {
+				background: rgba(255, 255, 255, 0.2);
+				border: none;
+				color: white;
+				padding: 8px 16px;
+				cursor: pointer;
+				border-radius: 4px;
+				white-space: nowrap;
+			}
+
+			nav button.active,
+			nav button:hover {
+				background: white;
+				color: var(--primary);
+			}
+
+			main {
+				max-width: 800px;
+				margin: 20px auto;
+				padding: 0 20px;
+			}
+
+			.section-card,
+			.quiz-card {
+				background: var(--secondary);
+				padding: 20px;
+				margin-bottom: 20px;
+				border-radius: 8px;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			}
+
+			h1,
+			h2,
+			h3 {
+				color: var(--primary);
+			}
+
+			ul {
+				padding-left: 20px;
+			}
+
+			.question-block {
+				margin-bottom: 20px;
+			}
+			.option-label {
+				display: block;
+				padding: 8px;
+				margin: 5px 0;
+				border: 1px solid var(--border);
+				border-radius: 4px;
+				cursor: pointer;
+			}
+
+			.option-label:hover {
+				background-color: #f0f0f0;
+			}
+
+			.btn-submit {
+				background-color: var(--primary);
+				color: white;
+				border: none;
+				padding: 10px 20px;
+				border-radius: 4px;
+				cursor: pointer;
+				font-size: 16px;
+			}
+
+			.result-box {
+				margin-top: 20px;
+				padding: 15px;
+				border-radius: 4px;
+				font-weight: bold;
+				display: none;
+			}
+
+			.option-correct {
+				background-color: var(--correct-bg);
+				border-color: var(--correct-border);
+			}
+
+			.option-wrong {
+				background-color: var(--wrong-bg);
+				border-color: var(--wrong-border);
+			}
+		</style>
+	</head>
+	<body>
+		<nav id="nav-container"></nav>
+
+		<main id="content-container">
+			Wybierz wykład z górnego menu.
+		</main>
+
+		<script>
+			let courseData = []
+			let currentLectureId = null
+
+			// Pobranie danych JSON
+			fetch('data.json')
+				.then((response) => response.json())
+				.then((data) => {
+					courseData = data.lectures
+					renderNav()
+					if (courseData.length > 0) {
+						loadLecture(courseData[0].id)
+					}
+				})
+				.catch((err) =>
+					console.error('Błąd ładowania JSON:', err)
+				)
+
+			function renderNav() {
+				const nav =
+					document.getElementById('nav-container')
+				nav.innerHTML = ''
+				courseData.forEach((lecture) => {
+					const btn = document.createElement('button')
+					btn.textContent = `Wykład ${lecture.id}`
+					btn.onclick = () => loadLecture(lecture.id)
+					if (lecture.id === currentLectureId)
+						btn.classList.add('active')
+					nav.appendChild(btn)
+				})
+			}
+
+			function loadLecture(id) {
+				currentLectureId = id
+				renderNav()
+				const lecture = courseData.find(
+					(l) => l.id === id
+				)
+				const container = document.getElementById(
+					'content-container'
+				)
+
+				let html = `<h1>${lecture.title}</h1>`
+
+				// Sekcja notatek
+				lecture.sections.forEach((sec) => {
+					html += `<div class="section-card">
+                            <h2>${sec.title}</h2>
+                            <ul>${sec.content.map((item) => `<li>${item}</li>`).join('')}</ul>
+                         </div>`
+				})
+
+				// Sekcja quizu
+				if (lecture.quiz && lecture.quiz.length > 0) {
+					html += `<div class="quiz-card">
+                            <h2>Quiz sprawdzający</h2>
+                            <div id="quiz-container">`
+
+					lecture.quiz.forEach((q, qIndex) => {
+						html += `<div class="question-block" data-qindex="${qIndex}">
+                                <h3>Pytanie ${qIndex + 1}: ${q.question}</h3>`
+						q.options.forEach((opt, oIndex) => {
+							html += `<label class="option-label" id="label-${qIndex}-${oIndex}">
+                                    <input type="checkbox" name="q${qIndex}" value="${oIndex}">
+                                    ${opt.text}
+                                 </label>`
+						})
+						html += `</div>`
+					})
+
+					html += `<button class="btn-submit" onclick="checkQuiz(${id})">Sprawdź odpowiedzi</button>
+                         <div id="quiz-result" class="result-box"></div>
+                         </div></div>`
+				}
+
+				container.innerHTML = html
+			}
+
+			function checkQuiz(lectureId) {
+				const lecture = courseData.find(
+					(l) => l.id === lectureId
+				)
+				let totalScore = 0
+				let maxScore = lecture.quiz.length
+
+				lecture.quiz.forEach((q, qIndex) => {
+					const checkboxes = document.querySelectorAll(
+						`input[name="q${qIndex}"]`
+					)
+
+					let m = q.options.filter(
+						(o) => o.isCorrect
+					).length // poprawne
+					let n = q.options.filter(
+						(o) => !o.isCorrect
+					).length // błędne
+
+					let questionScore = 0
+
+					checkboxes.forEach((cb, oIndex) => {
+						const isChecked = cb.checked
+						const isCorrect =
+							q.options[oIndex].isCorrect
+						const label = document.getElementById(
+							`label-${qIndex}-${oIndex}`
+						)
+
+						// Reset stylów
+						label.classList.remove(
+							'option-correct',
+							'option-wrong'
+						)
+
+						if (isChecked) {
+							if (isCorrect) {
+								questionScore += 1 / m
+								label.classList.add(
+									'option-correct'
+								)
+							} else {
+								// Zabezpieczenie przed dzieleniem przez 0
+								questionScore -= n > 0 ? 1 / n : 1
+								label.classList.add('option-wrong')
+							}
+						} else if (isCorrect) {
+							// Podświetl pominiętą poprawną
+							label.style.border =
+								'2px dashed #28a745'
+						}
+					})
+
+					// Wynik za pytanie nie może być ujemny
+					if (questionScore < 0) questionScore = 0
+					totalScore += questionScore
+				})
+
+				const percent = Math.round(
+					(totalScore / maxScore) * 100
+				)
+				const resultBox =
+					document.getElementById('quiz-result')
+				resultBox.style.display = 'block'
+				resultBox.innerHTML = `Twój wynik: ${percent}% (${totalScore.toFixed(2)} / ${maxScore} pkt). <br> 
+                                   <span style="font-weight:normal; font-size: 0.9em; margin-top: 10px; display:inline-block;">
+                                   Legenda: <span style="background:var(--correct-bg); padding:2px 5px;">Zielone</span> to poprawne trafienia, 
+                                   <span style="background:var(--wrong-bg); padding:2px 5px;">Czerwone</span> to błędy, a 
+                                   <span style="border: 2px dashed #28a745; padding:2px 5px;">przerywana ramka</span> to prawidłowe odpowiedzi, których nie zaznaczyłeś.</span>`
+				resultBox.style.backgroundColor =
+					percent >= 50
+						? 'var(--correct-bg)'
+						: 'var(--wrong-bg)'
+				resultBox.style.color = '#000'
+			}
+		</script>
+	</body>
+</html>
